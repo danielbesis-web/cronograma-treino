@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0a84ff" />
+<meta name="format-detection" content="telephone=no" />
+<title>Cronograma de Estudos — Cartório</title>
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230a84ff'/%3E%3Ctext x='50' y='66' font-size='56' text-anchor='middle' fill='white' font-family='-apple-system'%3E📚%3C/text%3E%3C/svg%3E" />
+<style>
+  :root {
+    --bg: #f2f2f7;
+    --card: #ffffff;
+    --card-2: #f9f9fb;
+    --text: #1c1c1e;
+    --text-2: #6e6e73;
+    --text-3: #8e8e93;
+    --accent: #0a84ff;
+    --accent-soft: #e6f0ff;
+    --success: #34c759;
+    --warning: #ff9500;
+    --danger: #ff3b30;
+    --purple: #5856d6;
+    --teal: #5ac8fa;
+    --border: #e5e5ea;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --radius: 16px;
+  }
+  body.dark {
+    --bg: #000000;
+    --card: #1c1c1e;
+    --card-2: #2c2c2e;
+    --text: #ffffff;
+    --text-2: #aeaeb2;
+    --text-3: #8e8e93;
+    --accent: #0a84ff;
+    --accent-soft: #1c2e4a;
+    --border: #38383a;
+    --shadow: 0 2px 12px rgba(0,0,0,0.4);
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    margin: 0; padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100%;
+  }
+  body { min-height: 100vh; }
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-top: calc(env(safe-area-inset-top, 0px) + 14px);
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 110px);
+  }
+  header {
+    padding-bottom: 14px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .title-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  h1 { font-size: 22px; margin: 0; font-weight: 700; letter-spacing: -0.5px; }
+  .subtitle { font-size: 12px; color: var(--text-2); margin-top: 2px; }
+  .icon-btn {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--card); border: 1px solid var(--border);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 18px; cursor: pointer; color: var(--text);
+  }
+  .icon-btn:active { transform: scale(0.92); }
+  .header-actions { display: flex; gap: 8px; }
+
+  .overall-card {
+    background: linear-gradient(135deg, #0a84ff 0%, #5856d6 100%);
+    color: white;
+    border-radius: var(--radius);
+    padding: 18px;
+    box-shadow: var(--shadow);
+    margin-bottom: 14px;
+  }
+  .overall-top {
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .overall-label { font-size: 13px; opacity: 0.9; font-weight: 500; letter-spacing: 0.2px; }
+  .overall-pct { font-size: 42px; font-weight: 700; letter-spacing: -1px; line-height: 1; }
+  .overall-count { font-size: 12px; opacity: 0.9; margin-top: 4px; }
+  .bar {
+    height: 8px; background: rgba(255,255,255,0.22); border-radius: 100px; overflow: hidden;
+    margin-top: 12px;
+  }
+  .bar-fill { height: 100%; background: white; border-radius: 100px; transition: width 0.4s ease; }
+  .overall-totals {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;
+    margin-top: 14px;
+  }
+  .ot-cell {
+    background: rgba(255,255,255,0.15);
+    border-radius: 10px; padding: 8px 6px;
+    text-align: center;
+  }
+  .ot-num { font-size: 17px; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
+  .ot-lbl { font-size: 9px; opacity: 0.9; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.3px; }
+
+  .search { margin-bottom: 12px; position: relative; }
+  .search input {
+    width: 100%; padding: 11px 14px 11px 38px;
+    border-radius: 12px; border: 1px solid var(--border);
+    background: var(--card); color: var(--text);
+    font-size: 15px; outline: none; -webkit-appearance: none;
+  }
+  .search::before {
+    content: "🔍"; position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+    font-size: 14px; opacity: 0.6;
+  }
+  .quick-actions {
+    display: flex; gap: 8px; margin-bottom: 14px; overflow-x: auto;
+    -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 2px;
+  }
+  .quick-actions::-webkit-scrollbar { display: none; }
+  .chip {
+    flex: 0 0 auto;
+    padding: 7px 13px; border-radius: 100px;
+    background: var(--card); border: 1px solid var(--border);
+    font-size: 13px; color: var(--text); cursor: pointer;
+    font-weight: 500; white-space: nowrap;
+  }
+  .chip.active { background: var(--accent); color: white; border-color: var(--accent); }
+  .chip:active { opacity: 0.7; }
+
+  .discipline {
+    background: var(--card);
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .discipline-header {
+    padding: 14px 16px;
+    display: flex; align-items: center; gap: 12px;
+    cursor: pointer; user-select: none;
+  }
+  .disc-num {
+    flex: 0 0 36px; height: 36px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 16px;
+    background: var(--accent-soft); color: var(--accent);
+  }
+  .disc-info { flex: 1; min-width: 0; }
+  .disc-name { font-size: 15px; font-weight: 600; line-height: 1.2; margin-bottom: 6px; }
+  .disc-meta { display: flex; align-items: center; gap: 10px; }
+  .mini-bar { flex: 1; height: 6px; background: var(--border); border-radius: 100px; overflow: hidden; }
+  .mini-fill { height: 100%; background: var(--accent); border-radius: 100px; transition: width 0.4s ease, background 0.3s; }
+  .disc-pct { font-size: 13px; font-weight: 600; color: var(--text-2); flex: 0 0 auto; min-width: 60px; text-align: right; }
+  .disc-totals {
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--text-2);
+    display: flex; gap: 10px; flex-wrap: wrap;
+  }
+  .disc-totals span b { color: var(--text); font-weight: 600; }
+  .chev { flex: 0 0 auto; color: var(--text-3); font-size: 16px; transition: transform 0.2s; }
+  .discipline.open .chev { transform: rotate(90deg); }
+
+  .topics {
+    display: none;
+    border-top: 1px solid var(--border);
+    background: var(--card-2);
+  }
+  .discipline.open .topics { display: block; }
+
+  .topic-group { border-bottom: 1px solid var(--border); }
+  .topic-group:last-child { border-bottom: none; }
+  .topic-group-header {
+    padding: 11px 16px 6px;
+    font-size: 12px; color: var(--text-2);
+    text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;
+    background: var(--card-2);
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  }
+  .topic-group-actions { display: flex; gap: 6px; }
+  .group-action {
+    font-size: 11px; padding: 3px 8px; border-radius: 100px;
+    background: var(--card); color: var(--accent); cursor: pointer;
+    border: 1px solid var(--border); text-transform: none; letter-spacing: 0; font-weight: 500;
+  }
+  .group-action:active { opacity: 0.6; }
+
+  .topic-item { border-top: 1px solid var(--border); background: var(--card); }
+  .topic-item:first-of-type { border-top: none; }
+  .topic-row { display: flex; align-items: center; gap: 12px; padding: 11px 16px; cursor: pointer; }
+  .topic-row:active { background: var(--accent-soft); }
+  .topic-item.done .topic-text { color: var(--text-3); text-decoration: line-through; }
+  .checkbox {
+    flex: 0 0 24px; height: 24px; border-radius: 50%;
+    border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    background: var(--card);
+  }
+  .topic-item.done .checkbox { background: var(--success); border-color: var(--success); }
+  .topic-item.done .checkbox::after { content: "✓"; color: white; font-size: 14px; font-weight: 700; }
+  .topic-text-wrap { flex: 1; min-width: 0; }
+  .topic-text { font-size: 14px; line-height: 1.35; color: var(--text); }
+  .topic-badges { display: flex; gap: 6px; margin-top: 5px; flex-wrap: wrap; }
+  .badge {
+    font-size: 10px; padding: 2px 7px; border-radius: 100px;
+    background: var(--card-2); color: var(--text-2);
+    border: 1px solid var(--border); font-weight: 600;
+    display: inline-flex; align-items: center; gap: 3px;
+  }
+  .badge.q { color: var(--accent); border-color: rgba(10,132,255,0.25); background: var(--accent-soft); }
+  .badge.qd { color: var(--teal); border-color: rgba(90,200,250,0.3); background: rgba(90,200,250,0.10); }
+  .badge.s { color: var(--purple); border-color: rgba(88,86,214,0.25); background: rgba(88,86,214,0.08); }
+  .badge.d { color: var(--warning); border-color: rgba(255,149,0,0.25); background: rgba(255,149,0,0.08); }
+  body.dark .badge.qd { background: rgba(90,200,250,0.18); }
+  body.dark .badge.s { background: rgba(88,86,214,0.18); }
+  body.dark .badge.d { background: rgba(255,149,0,0.18); }
+  .arrow { flex: 0 0 auto; color: var(--text-3); font-size: 14px; transition: transform 0.2s; }
+  .topic-item.expanded .arrow { transform: rotate(90deg); }
+
+  .topic-detail {
+    display: none;
+    padding: 6px 16px 16px;
+    background: var(--card-2);
+    border-top: 1px dashed var(--border);
+  }
+  .topic-item.expanded .topic-detail { display: block; }
+
+  .detail-row {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 12px;
+    margin-top: 10px;
+    border: 1px solid var(--border);
+  }
+  .detail-title {
+    font-size: 12px; font-weight: 700; color: var(--text-2);
+    text-transform: uppercase; letter-spacing: 0.4px;
+    margin-bottom: 8px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .detail-title .count {
+    font-size: 13px; padding: 2px 8px; border-radius: 100px;
+    background: var(--accent-soft); color: var(--accent);
+    text-transform: none; letter-spacing: 0;
+  }
+  .detail-title.qd .count { background: rgba(90,200,250,0.15); color: var(--teal); }
+  .detail-title.s .count { background: rgba(88,86,214,0.12); color: var(--purple); }
+  .detail-title.d .count { background: rgba(255,149,0,0.12); color: var(--warning); }
+  body.dark .detail-title.qd .count { background: rgba(90,200,250,0.25); }
+  body.dark .detail-title.s .count { background: rgba(88,86,214,0.25); }
+  body.dark .detail-title.d .count { background: rgba(255,149,0,0.25); }
+
+  .stepper { display: flex; align-items: center; gap: 10px; justify-content: space-between; }
+  .stepper .center { display: flex; align-items: center; gap: 12px; }
+  .step-btn {
+    width: 38px; height: 38px; border-radius: 50%;
+    border: 1px solid var(--border); background: var(--card);
+    font-size: 20px; font-weight: 600; color: var(--text);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    user-select: none;
+  }
+  .step-btn:active { background: var(--accent-soft); transform: scale(0.93); }
+  .step-val { font-size: 22px; font-weight: 700; min-width: 50px; text-align: center; font-variant-numeric: tabular-nums; }
+  .step-quick { display: flex; gap: 6px; }
+  .quick-btn {
+    font-size: 12px; padding: 5px 10px; border-radius: 100px;
+    border: 1px solid var(--border); background: var(--card);
+    color: var(--accent); cursor: pointer; font-weight: 500;
+  }
+  .quick-btn:active { opacity: 0.6; }
+
+  .toggle-line {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px;
+    background: var(--card); border-radius: 12px; border: 1px solid var(--border);
+  }
+  .toggle-line-text { font-size: 14px; font-weight: 500; }
+  .toggle {
+    width: 50px; height: 30px; border-radius: 100px;
+    background: var(--border); position: relative; cursor: pointer;
+    transition: background 0.2s; flex: 0 0 auto;
+  }
+  .toggle::after {
+    content: ""; position: absolute; top: 3px; left: 3px;
+    width: 24px; height: 24px; border-radius: 50%; background: white;
+    transition: transform 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  .toggle.on { background: var(--success); }
+  .toggle.on::after { transform: translateX(20px); }
+
+  .footer-actions {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    padding: 10px 14px;
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 10px);
+    display: flex; gap: 8px; justify-content: center;
+    z-index: 40;
+  }
+  .footer-btn {
+    flex: 1; max-width: 180px;
+    padding: 10px 14px; border-radius: 100px;
+    background: var(--card); border: 1px solid var(--border);
+    color: var(--text); font-size: 13px; font-weight: 500; cursor: pointer;
+  }
+  .footer-btn.primary { background: var(--accent); color: white; border-color: var(--accent); }
+  .footer-btn:active { transform: scale(0.97); }
+
+  .modal-bg {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.45);
+    display: none; align-items: flex-end; justify-content: center; z-index: 100;
+  }
+  .modal-bg.open { display: flex; }
+  .modal {
+    background: var(--card); width: 100%; max-width: 600px;
+    border-radius: 18px 18px 0 0;
+    padding: 20px 18px;
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+  }
+  .modal h3 { margin: 0 0 12px; font-size: 17px; }
+  .modal-row {
+    padding: 14px 0; border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    cursor: pointer; font-size: 15px;
+  }
+  .modal-row:last-child { border-bottom: none; }
+  .modal-row.danger { color: var(--danger); }
+  .modal-close {
+    margin-top: 12px; width: 100%; padding: 13px;
+    background: var(--card-2); border: none; border-radius: 12px;
+    font-size: 15px; font-weight: 600; color: var(--text); cursor: pointer;
+  }
+
+  .toast {
+    position: fixed; top: 80px; left: 50%; transform: translateX(-50%);
+    background: rgba(0,0,0,0.85); color: white;
+    padding: 10px 18px; border-radius: 100px;
+    font-size: 14px; font-weight: 500;
+    opacity: 0; transition: opacity 0.3s;
+    pointer-events: none; z-index: 200;
+  }
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="title-row">
+      <div>
+        <h1>📚 Cronograma — Cartório</h1>
+        <div class="subtitle" id="last-update">Toque em um tópico para abrir os detalhes</div>
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" id="btn-theme" title="Tema">🌓</button>
+        <button class="icon-btn" id="btn-menu" title="Menu">⚙️</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="overall-card">
+    <div class="overall-top">
+      <div>
+        <div class="overall-label">PROGRESSO TOTAL</div>
+        <div class="overall-count" id="overall-count">0 de 0 tópicos</div>
+      </div>
+      <div class="overall-pct" id="overall-pct">0%</div>
+    </div>
+    <div class="bar"><div class="bar-fill" id="overall-bar" style="width:0%"></div></div>
+    <div class="overall-totals">
+      <div class="ot-cell"><div class="ot-num" id="t-q">0</div><div class="ot-lbl">❓ Obj.</div></div>
+      <div class="ot-cell"><div class="ot-num" id="t-qd">0</div><div class="ot-lbl">✍️ Diss.</div></div>
+      <div class="ot-cell"><div class="ot-num" id="t-s">0</div><div class="ot-lbl">📌 Súm.</div></div>
+      <div class="ot-cell"><div class="ot-num" id="t-d">0</div><div class="ot-lbl">⚖️ Dec.</div></div>
+    </div>
+  </div>
+
+  <div class="search">
+    <input type="search" id="search" placeholder="Buscar tópico..." autocomplete="off" autocapitalize="none" />
+  </div>
+
+  <div class="quick-actions">
+    <div class="chip active" data-filter="all">Todos</div>
+    <div class="chip" data-filter="pending">Pendentes</div>
+    <div class="chip" data-filter="done">Estudados</div>
+    <div class="chip" data-filter="started">Em andamento</div>
+    <div class="chip" data-filter="untouched">Não iniciados</div>
+  </div>
+
+  <div id="disciplines"></div>
+  <div id="err-box" style="display:none;background:#fff3cd;color:#664d03;padding:12px;border-radius:10px;margin-top:14px;font-size:13px;font-family:monospace;white-space:pre-wrap;"></div>
+</div>
+
+<div class="footer-actions">
+  <button class="footer-btn" id="btn-collapse">Recolher tudo</button>
+  <button class="footer-btn primary" id="btn-expand">Expandir tudo</button>
+</div>
+
+<div class="modal-bg" id="modal-bg">
+  <div class="modal">
+    <h3>Opções</h3>
+    <div class="modal-row" id="btn-export"><span>📤 Exportar progresso (backup)</span><span>›</span></div>
+    <div class="modal-row" id="btn-import"><span>📥 Importar progresso</span><span>›</span></div>
+    <div class="modal-row" id="btn-stats"><span>📊 Estatísticas detalhadas</span><span>›</span></div>
+    <div class="modal-row danger" id="btn-reset"><span>🗑️ Resetar tudo</span><span>›</span></div>
+    <button class="modal-close" id="modal-close">Fechar</button>
+    <input type="file" id="file-import" accept=".json,application/json" style="display:none" />
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+window.addEventListener("error", function(e) {
+  var b = document.getElementById("err-box");
+  if (b) { b.style.display = "block"; b.textContent = "Erro: " + (e.message || e); }
+});
+
+/* ESTRUTURA DO SUMÁRIO */
+const SYLLABUS = [
+  {
+    name: "Direito Administrativo", icon: "⚖️",
+    groups: [
+      { title: "1. Agentes Públicos", items: [
+        "1.1 Disposições Gerais", "1.2 Concurso Público",
+        "1.3 Regras Previdenciárias", "1.4 Regras Remuneratórias"
+      ]},
+      { title: "2. Atos Administrativos", items: [
+        "2.1 Atributos/Elementos", "2.2 Controle",
+        "2.3 Espécies", "2.4 Prescrição/Decadência"
+      ]},
+      { title: "3. Bens Públicos", items: ["3. Bens Públicos"] },
+      { title: "4. Controle da Administração Pública", items: [
+        "4.1 Lei Anticorrupção (Lei 12.846/13)",
+        "4.2 Lei de Acesso à Informação (Lei 12.527/11)",
+        "4.3 Lei de Improbidade (Lei 8.429/92)",
+        "4.4 Lei de Racionalização Administrativa (Lei 13.726/18)"
+      ]},
+      { title: "5. Entes da Administração", items: [
+        "5.1 Disposições Gerais",
+        "5.2 Agências, Autarquias e Fundações",
+        "5.3 Consórcios Públicos",
+        "5.4 Empresas Públicas e Sociedades de Economia Mista",
+        "5.5 Entes Paraestatais"
+      ]},
+      { title: "6. Intervenção do Estado na Propriedade", items: [
+        "6.1 Desapropriação", "6.2 Outros Tipos de Intervenção"
+      ]},
+      { title: "7. Licitações e Contratos", items: [
+        "7.1 Contratos",
+        "7.2.1 Licitações — Disposições Gerais",
+        "7.2.2 Licitações — Dispensa/Inexigibilidade",
+        "7.2.3 Licitações — Modalidades"
+      ]},
+      { title: "8. Processo Administrativo", items: [
+        "8.1 Processo Comum", "8.2 Processo Disciplinar"
+      ]},
+      { title: "9. Responsabilidade Civil do Estado", items: ["9. Responsabilidade Civil do Estado"] },
+      { title: "10. Serviços Públicos", items: [
+        "10.1 Disposições Gerais",
+        "10.2 Autorização, Concessão, Delegação e Permissão",
+        "10.3 Parcerias Público Privadas"
+      ]},
+      { title: "11. Teoria, Poderes e Princípios", items: [
+        "11.1 Teoria", "11.2 Poderes", "11.3 Princípios"
+      ]}
+    ]
+  },
+  {
+    name: "Direito Civil", icon: "📜",
+    groups: [
+      { title: "1. Das Pessoas (arts. 1º a 78)", items: [
+        "1.1 Das Pessoas Naturais (arts. 1º a 39)",
+        "1.2 Das Pessoas Jurídicas (arts. 40 a 69)"
+      ]},
+      { title: "2. Dos Bens (arts. 79 a 103)", items: ["2. Dos Bens (arts. 79 a 103)"] },
+      { title: "3. Dos Fatos Jurídicos (arts. 104 a 232)", items: [
+        "3.1.1 Negócio Jurídico — Disposições Gerais, Representação (arts. 104 a 120)",
+        "3.1.2 Da Condição, do Termo e do Encargo (arts. 121 a 137)",
+        "3.1.3 Dos Defeitos, Da Invalidade (arts. 138 a 184)",
+        "3.2 Atos Jurídicos Lícitos, Atos Ilícitos (arts. 185 a 188)",
+        "3.3 Da Prescrição e da Decadência (arts. 189 a 211)",
+        "3.4 Da Prova (arts. 212 a 232)"
+      ]},
+      { title: "4. Do Direito das Obrigações (arts. 233 a 965)", items: [
+        "4.1 Das Modalidades (arts. 233 a 285)",
+        "4.2 Da Transmissão (arts. 286 a 303)",
+        "4.3 Do Adimplemento e Extinção (arts. 304 a 388)",
+        "4.4 Do Inadimplemento (arts. 389 a 420)",
+        "4.5 Dos Contratos em Geral (arts. 421 a 480)",
+        "4.6.1 Compra e Venda; Troca/Permuta; Contrato Estimatório (arts. 481 a 537)",
+        "4.6.2 Doação; Locação de Coisas; Empréstimo (arts. 538 a 592)",
+        "4.6.3 Mandato; Comissão; Agência e Distribuição (arts. 653 a 721)",
+        "4.6.4 Corretagem; Transporte; Seguro; Constituição de Renda (arts. 722 a 813)",
+        "4.6.5 Jogo e Aposta; Fiança; Transação; Compromisso; Adm. Garantias (arts. 814 a 853-A)",
+        "4.7 Da Responsabilidade Civil (arts. 927 a 954)"
+      ]},
+      { title: "5. Do Direito das Coisas (arts. 1.196 a 1.510)", items: [
+        "5.1 Da Posse (arts. 1.196 a 1.224)",
+        "5.2.1 Da Propriedade em Geral (arts. 1.228 a 1.237)",
+        "5.2.2 Aquisição/Perda da Propriedade (arts. 1.238 a 1.276)",
+        "5.2.3 Direitos de Vizinhança (arts. 1.277 a 1.313)",
+        "5.2.4 Do Condomínio (arts. 1.314 a 1.358-U)",
+        "5.2.5 Propriedade Resolúvel/Fiduciária (arts. 1.359 a 1.368-B)",
+        "5.3 Da Superfície, Das Servidões (arts. 1.369 a 1.389)",
+        "5.4 Usufruto, Uso, Habitação (arts. 1.390 a 1.416)",
+        "5.6 Penhor, Hipoteca e Anticrese (arts. 1.419 a 1.510)",
+        "5.7 Da Laje (arts. 1.510-A a 1.510-E)"
+      ]},
+      { title: "6. Do Direito de Família (arts. 1.511 a 1783)", items: [
+        "6.1.1 Do Casamento (arts. 1.511 a 1.590)",
+        "6.1.2 Relações de Parentesco (arts. 1.591 a 1.638)",
+        "6.2.1 Regime de Bens (arts. 1.639 a 1.688)",
+        "6.2.2 Usufruto e Administração dos Bens de Filhos Menores (arts. 1.689 a 1.693)",
+        "6.2.3 Dos Alimentos (arts. 1.694 a 1.710)",
+        "6.3 Da União Estável (arts. 1.723 a 1.727)",
+        "6.4 Tutela, Curatela, Tomada de Decisão Apoiada (arts. 1.728 a 1.783)"
+      ]},
+      { title: "7. Do Direito das Sucessões (arts. 1.784 a 2.027)", items: [
+        "7.1 Da Sucessão em Geral (arts. 1.784 a 1.828)",
+        "7.2 Da Sucessão Legítima (arts. 1.829 a 1.856)",
+        "7.3 Da Sucessão Testamentária (arts. 1.857 a 1.990)",
+        "7.4 Do Inventário e da Partilha (arts. 1.991 a 2.027)"
+      ]},
+      { title: "8. Disposições Finais e Transitórias", items: ["8. Disposições Finais e Transitórias (arts. 2.028 a 2.046)"] },
+      { title: "9. Leis Especiais", items: [
+        "9.1 Código de Defesa do Consumidor (Lei 8.078/90)",
+        "9.2 Estatuto da Criança e do Adolescente (Lei 8.069/90)",
+        "9.3 Estatuto da Pessoa com Deficiência (Lei 13.146/15)",
+        "9.4 Estatuto da Pessoa Idosa (Lei 10.741/03)",
+        "9.5 Lei de Direitos Autorais (Lei 9.610/98)",
+        "9.6 LINDB (DL 4.657/42)",
+        "9.7 Lei de Investigação de Paternidade (Lei 8.560/92)",
+        "9.8 Lei de Locações Urbanas (Lei 8.245/91)",
+        "9.9 Lei de Migração (Lei 13.445/17)",
+        "9.10 Lei de Transplantes (Lei 9.434/97)",
+        "9.11 Lei do Bem de Família (Lei 8.009/90)",
+        "9.12 LGPD (Lei 13.709/17)"
+      ]}
+    ]
+  },
+  {
+    name: "Direito Constitucional", icon: "🏛️",
+    groups: [
+      { title: "1. Dos Princípios Fundamentais (arts. 1º a 4º)", items: ["1. Dos Princípios Fundamentais (arts. 1º a 4º)"] },
+      { title: "2. Dos Direitos e Garantias Fundamentais", items: [
+        "2.1 Direitos e Deveres Individuais e Coletivos (art. 5º)",
+        "2.2 Direitos Sociais (arts. 6º a 11)",
+        "2.3 Da Nacionalidade (arts. 12 e 13)",
+        "2.4 Direitos/Partidos Políticos (arts. 14 a 17)"
+      ]},
+      { title: "3. Da Organização do Estado", items: [
+        "3.1 Da União (arts. 20 a 24)",
+        "3.2 Dos Estados Federados (arts. 25 a 28)",
+        "3.3 Dos Municípios (arts. 29 a 31)",
+        "3.4 Da Intervenção (arts. 34 a 36)"
+      ]},
+      { title: "4. Da Organização dos Poderes", items: [
+        "4.1.1 Do Congresso Nacional (arts. 44 a 58)",
+        "4.1.2 Do Processo Legislativo (arts. 59 a 69)",
+        "4.1.3 Fiscalização Contábil, Financeira e Orçamentária (arts. 70 a 75)",
+        "4.2 Do Poder Executivo (arts. 76 a 91)",
+        "4.3.1 Poder Judiciário — Disposições Gerais (arts. 92 a 100)",
+        "4.3.2 Do Supremo Tribunal Federal (arts. 101 a 103-A)",
+        "4.3.3 Do Conselho Nacional de Justiça (art. 103-B)",
+        "4.3.4 Demais Tribunais e Juízes (arts. 105 a 126)",
+        "4.4 Funções Essenciais à Justiça (arts. 127 a 135)"
+      ]},
+      { title: "5. Da Defesa do Estado e das Instituições Democráticas", items: [
+        "5.1 Estado de Defesa e Estado de Sítio (arts. 136 a 141)"
+      ]},
+      { title: "6. Da Ordem Econômica e Financeira", items: [
+        "6.1 Princípios Gerais da Atividade Econômica (arts. 170 a 181)",
+        "6.2 Política Urbana, Política Agrícola, Reforma Agrária (arts. 182 a 191)"
+      ]},
+      { title: "7. Da Ordem Social", items: [
+        "7.1 Da Seguridade Social (arts. 194 a 204)",
+        "7.2 Educação, Cultura e Desporto (arts. 205 a 217)",
+        "7.3 Ciência, Tecnologia e Inovação (arts. 218 a 219)",
+        "7.4 Da Comunicação Social (arts. 220 a 224)",
+        "7.5 Do Meio Ambiente (art. 225)",
+        "7.6 Família, Criança, Adolescente, Jovem e Idoso (arts. 226 a 230)",
+        "7.7 Dos Índios (arts. 231 a 232)"
+      ]},
+      { title: "8. Disposições Constitucionais Gerais; ADCT", items: ["8. Disposições Constitucionais Gerais; ADCT (arts. 233 a 250)"] },
+      { title: "9. Ações Constitucionais", items: [
+        "9.1 Ação Civil Pública", "9.2 Ação Popular",
+        "9.3 Habeas Corpus", "9.4 Habeas Data",
+        "9.5 Mandado de Injunção", "9.6 Mandado de Segurança"
+      ]},
+      { title: "10. Controle de Constitucionalidade", items: [
+        "10.1 Controle Concentrado", "10.2 Controle Difuso",
+        "10.3 Súmula Vinculante"
+      ]},
+      { title: "11. Teoria", items: [
+        "11.1 Classificação/Conceito de Constituições/Normas",
+        "11.2 Evolução/História Constitucional",
+        "11.3 Hermenêutica Constitucional",
+        "11.4 Poder Constituinte"
+      ]}
+    ]
+  },
+  {
+    name: "Direito Empresarial", icon: "🏢",
+    groups: [
+      { title: "1. Do Empresário (arts. 966 a 980)", items: ["1. Do Empresário (arts. 966 a 980)"] },
+      { title: "2. Da Sociedade (arts. 981 a 1.141)", items: [
+        "2.1 Disposições Gerais (arts. 981 a 985)",
+        "2.2 Sociedade não Personificada (arts. 986 a 996)",
+        "2.3.1 Simples, Nome Coletivo, Comandita Simples (arts. 997 a 1.051)",
+        "2.3.2 Limitada, Anônima, Comandita por Ações (arts. 1.052 a 1.092)",
+        "2.3.3 Cooperativa, Coligada, Dependente de Autorização",
+        "2.3.4 Liquidação, Transformação, Incorporação, Fusão e Cisão (arts. 1.102 a 1.122)"
+      ]},
+      { title: "3. Do Estabelecimento (arts. 1.142 a 1.149)", items: ["3. Do Estabelecimento (arts. 1.142 a 1.149)"] },
+      { title: "4. Dos Institutos Complementares (arts. 1.150 a 1.195)", items: ["4. Dos Institutos Complementares (arts. 1.150 a 1.195)"] },
+      { title: "5. Contratos Mercantis/Bancários", items: ["5. Contratos Mercantis/Bancários"] },
+      { title: "6. Lei de Recuperação e Falência (Lei 11.101/05)", items: [
+        "6.1 Falência",
+        "6.2 Recuperação Judicial/Extrajudicial"
+      ]},
+      { title: "7. Leis Especiais", items: [
+        "7.1 Estatuto da Microempresa e da EPP (LC 123/06)",
+        "7.2 Lei das Sociedades Anônimas (Lei 6.404/76)",
+        "7.3 Lei de Liberdade Econômica (Lei 13.874/19)",
+        "7.4 Lei de Propriedade Industrial (Lei 9.279/96)",
+        "7.5 Sistema de Franquia Empresarial (Lei 13.966/19)"
+      ]},
+      { title: "8. Títulos de Crédito", items: [
+        "8.1 Código Civil (arts. 887 a 926)",
+        "8.2.1 Lei da Cédula de Produto Rural (Lei 8.929/94)",
+        "8.2.2 Lei das Duplicatas (Lei 5.474/68)",
+        "8.2.3 Títulos de Crédito Industrial (DL 413/69)",
+        "8.2.4 Títulos de Crédito Rural (DL 167/67)",
+        "8.2.5 Leis Esparsas"
+      ]},
+      { title: "9. Teoria e Princípios", items: ["9. Teoria e Princípios"] }
+    ]
+  },
+  {
+    name: "Direito Notarial e Registral", icon: "📋",
+    groups: [
+      { title: "1. Código Nacional de Normas (Prov. CNJ 149/2023)", items: [
+        "1.1.1 Das Atribuições (arts. 1º a 57)",
+        "1.1.2 Organização na Prestação dos Serviços (arts. 58 a 64-I)",
+        "1.1.3 Dos Interinos e dos Prepostos (arts. 65 a 71-T)",
+        "1.1.4 Do Delegatário (art. 72)",
+        "1.1.5 Da Proteção de Dados Pessoais (arts. 79 a 135)",
+        "1.2 Da Interação Interinstitucional (arts. 136 a 184-A)",
+        "1.3 Do Acervo das Serventias (arts. 185 a 205-Q)",
+        "1.4 Da Organização Digital dos Serviços (arts. 206 a 343-J)",
+        "1.5 Dos Emolumentos nos Serviços Notariais e Registrais (arts. 344 a 353)",
+        "1.6 Do Tabelionato de Protesto (arts. 354 a 396)",
+        "1.7 Do RTD e do Registro Civil de Pessoas Jurídicas (arts. 397 a 397-AM)",
+        "1.8 Do Registro de Imóveis (arts. 398 a 440-BG)",
+        "1.9 Do Tabelionato de Notas (arts. 441 a 444-G)",
+        "1.10.1 Unidades Interligadas nos Estabelecimentos de Saúde (arts. 445 a 460)",
+        "1.10.2 Situações Jurídico-Transnacionais (arts. 462 a 467)",
+        "1.10.3 Dos Modelos de Atos (arts. 472 a 479)",
+        "1.10.4 Do Registro de Natimorto (arts. 479-A e 479-B)",
+        "1.10.5 Do Registro Tardio (arts. 480 a 495)",
+        "1.10.6 Do Reconhecimento de Paternidade (arts. 496 a 504)",
+        "1.10.7 Da Parentalidade Socioafetiva (arts. 505 a 511)",
+        "1.10.8 Da Adoção Unilateral (art. 511-A)",
+        "1.10.9 Da Reprodução Assistida (arts. 512 a 515)",
+        "1.10.10 Alteração Extrajudicial do Nome (arts. 515-A a 515-V)",
+        "1.10.11 Dados Relativos à Pessoa Transgênero (arts. 516 a 523)",
+        "1.10.12 Ações Informativas p/ Preparação do Casamento (arts. 531 a 536)",
+        "1.10.13 Da União Estável (arts. 537 a 553)",
+        "1.10.14 Casamento entre Pessoas do Mesmo Sexo (art. 554)"
+      ]},
+      { title: "2. Lei do Protesto (Lei 9.492/97)", items: [
+        "2.1 Da Competência e das Atribuições (arts. 1º a 3º)",
+        "2.2 Da Ordem dos Serviços (arts. 4º a 6º)",
+        "2.3 Da Distribuição (arts. 7º a 8º)",
+        "2.4 Da Apresentação e Protocolização (arts. 9º a 11-A)",
+        "2.5 Do Prazo (arts. 12 a 13)",
+        "2.6 Da Intimação (arts. 14 a 15)",
+        "2.7 Desistência e Sustação do Protesto (arts. 16 a 18)",
+        "2.8 Do Pagamento (art. 19)",
+        "2.9 Do Registro do Protesto (arts. 20 a 24)",
+        "2.10 Averbações e Cancelamento (arts. 25 a 26)",
+        "2.11 Certidões e Informações do Protesto (arts. 27 a 31)",
+        "2.12 Livros e Arquivos (arts. 32 a 36)",
+        "2.13 Disposições Finais (arts. 38 a 43)",
+        "2.14 Temas Esparsos"
+      ]},
+      { title: "3. Lei dos Cartórios (Lei 8.935/94)", items: [
+        "3.1.1 Natureza e Fins (arts. 1º a 4º)",
+        "3.1.2 Dos Notários e Registradores (arts. 5º a 13)",
+        "3.2.1 Ingresso na Atividade Notarial e de Registro (arts. 14 a 19)",
+        "3.2.2 Dos Prepostos (arts. 20 e 21)",
+        "3.2.3 Responsabilidade Civil e Criminal (arts. 22 a 24)",
+        "3.2.4 Incompatibilidades e Impedimentos (arts. 25 a 27)",
+        "3.2.5 Direitos e Deveres (arts. 28 a 30)",
+        "3.2.6 Infrações Disciplinares e Penalidades (arts. 31 a 36)",
+        "3.2.7 Fiscalização pelo Poder Judiciário (arts. 37 e 38)",
+        "3.2.8 Da Extinção da Delegação (art. 39)",
+        "3.3 Disposições Gerais/Transitórias (arts. 41 a 55)"
+      ]},
+      { title: "4. Lei dos Registros Públicos (Lei 6.015/73)", items: [
+        "4.1.1 Disposições Gerais — Das Atribuições (arts. 1º e 2º)",
+        "4.1.2 Da Ordem do Serviço (arts. 8º a 15)",
+        "4.1.3 Da Publicidade (arts. 16 a 21)",
+        "4.1.4 Da Conservação (arts. 22 a 27)",
+        "4.2.1 RCPN — Disposições Gerais (arts. 29 a 32)",
+        "4.2.2 Da Escrituração e Ordem de Serviço (arts. 33 a 45)",
+        "4.2.3 Das Penalidades (arts. 46 a 49)",
+        "4.2.4 Do Nascimento (arts. 50 a 66)",
+        "4.2.5 Habilitação p/ Casamento (arts. 67 a 69)",
+        "4.2.6 Do Casamento (arts. 70 e 70-A)",
+        "4.2.7 Registro do Casamento Religioso (arts. 71 a 75)",
+        "4.2.8 Casamento em Iminente Risco de Vida (art. 76)",
+        "4.2.9 Do Óbito (arts. 77 a 88)",
+        "4.2.10 Emancipação, Interdição e Ausência (arts. 89 a 94-A)",
+        "4.2.11 Da Legitimação Adotiva (arts. 95 a 96)",
+        "4.2.12 Da Averbação (arts. 97 a 105)",
+        "4.2.13 Das Anotações (arts. 106 a 108)",
+        "4.2.14 Retificações, Restaurações e Suprimentos (arts. 109 a 113)",
+        "4.3.1 RCPJ — Escrituração, Pessoa Jurídica (arts. 114 a 121)",
+        "4.3.2 Registro de Jornais, Oficinas Impressoras (arts. 122 a 126)",
+        "4.4.1 RTD — Das Atribuições (arts. 127 a 131)",
+        "4.4.2 Da Escrituração (arts. 132 a 141)",
+        "4.4.3 Da Ordem do Serviço (arts. 146 a 163)",
+        "4.5.1 RI — Das Atribuições (arts. 167 a 171)",
+        "4.5.2 Da Escrituração (arts. 172 a 181)",
+        "4.5.3 Do Processo do Registro (arts. 182 a 216-B)",
+        "4.5.4 Das Pessoas (arts. 217 a 220)",
+        "4.5.5 Dos Títulos (arts. 221 a 226)",
+        "4.5.6 Da Matrícula (arts. 227 a 235)",
+        "4.5.7 Do Registro (arts. 236 a 245)",
+        "4.5.8 Averbação e Cancelamento (arts. 246 a 259)",
+        "4.5.9 Remição do Imóvel Hipotecado (arts. 266 a 276)",
+        "4.5.10 Do Registro Torrens (arts. 277 a 288)",
+        "4.6 Disposições Finais e Transitórias (arts. 289 a 299)"
+      ]},
+      { title: "5. Provimentos do CNJ", items: [
+        "5.1 Provimento 16/2012",
+        "5.2 Provimento 50/2015",
+        "5.3 Provimento 56/2016",
+        "5.4 Provimento 63/2017",
+        "5.5 Provimento 65/2017",
+        "5.6 Provimento 73/2018",
+        "5.7 Provimento 74/2018",
+        "5.8 Provimento 82/2019",
+        "5.9 Provimento 85/2019",
+        "5.10 Provimento 88/2019",
+        "5.11 Provimento 89/2019",
+        "5.12 Provimento 134/2022"
+      ]},
+      { title: "6. Resoluções do CNJ", items: [
+        "6.1 Resolução 35/2007",
+        "6.2 Resolução 228/2016",
+        "6.3 Outras Resoluções"
+      ]},
+      { title: "7. Leis Especiais", items: [
+        "7.1 Código Florestal (Lei 12.651/12)",
+        "7.2 Declaração sobre Operações Imobiliárias",
+        "7.3 Estatuto da Cidade (Lei 10.257/01)",
+        "7.4 Estatuto da Metrópole (Lei 13.089/15)",
+        "7.5 Estatuto da Terra (Lei 4.504/64)",
+        "7.6 Aquisição de Imóvel Rural por Estrangeiro (Lei 5.709/71)",
+        "7.7 Condomínio em Edificações e Incorporações (Lei 4.591/64)",
+        "7.8 Lei de Contratos Imobiliários (Lei 4.380/64)",
+        "7.9 Normas Gerais sobre Emolumentos (Lei 10.169/00)",
+        "7.10 Registro de Imóveis Rurais (Lei 6.739/79)",
+        "7.11 Parcelamento do Solo Urbano (Lei 6.766/79)",
+        "7.12 Requisitos para Escrituras Públicas (Lei 7.433/85)",
+        "7.13 Lei do Loteamento Urbano (DL 271/67)",
+        "7.14 Patrimônio de Afetação (Lei 10.931/04)",
+        "7.15 Registro Público de Empresas Mercantis (Lei 8.934/94)",
+        "7.16 Sistema de Financiamento Imobiliário (Lei 9.514/97)",
+        "7.17 Sistema Eletrônico de Registros Públicos (Lei 14.382/22)",
+        "7.18 Inventário/Partilha/Separação/Divórcio Consensual (Lei 11.441/07)",
+        "7.19 Minha Casa Minha Vida (Lei 11.977/09)",
+        "7.20 Leis Esparsas"
+      ]},
+      { title: "8. Teoria", items: [
+        "8.1 Princípios",
+        "8.2 Temas Esparsos"
+      ]}
+    ]
+  },
+  {
+    name: "Direito Penal", icon: "⚖️",
+    groups: [
+      { title: "1. Aplicação da Lei Penal (arts. 1 a 12)", items: ["1. Da Aplicação da Lei Penal (arts. 1 a 12)"] },
+      { title: "2. Do Crime (arts. 13 a 25)", items: ["2. Do Crime (arts. 13 a 25)"] },
+      { title: "3. Da Imputabilidade Penal (arts. 26 a 28)", items: ["3. Da Imputabilidade Penal (arts. 26 a 28)"] },
+      { title: "4. Do Concurso de Pessoas (arts. 29 a 31)", items: ["4. Do Concurso de Pessoas (arts. 29 a 31)"] },
+      { title: "5. Das Penas (arts. 32 a 95)", items: ["5. Das Penas (arts. 32 a 95)"] },
+      { title: "6. Das Medidas de Segurança (arts. 96 a 99)", items: ["6. Das Medidas de Segurança (arts. 96 a 99)"] },
+      { title: "7. Da Extinção da Punibilidade (arts. 107 a 120)", items: ["7. Da Extinção da Punibilidade (arts. 107 a 120)"] },
+      { title: "8. Crimes c/ Pessoa (arts. 121 a 154-B)", items: ["8. Dos Crimes c/ Pessoa (arts. 121 a 154-B)"] },
+      { title: "9. Crimes c/ Patrimônio (arts. 155 a 183)", items: ["9. Dos Crimes c/ Patrimônio (arts. 155 a 183)"] },
+      { title: "10. Crimes c/ Dignidade Sexual (arts. 213 a 234)", items: ["10. Dos Crimes c/ Dignidade Sexual (arts. 213 a 234)"] },
+      { title: "11. Crimes c/ Família (arts. 235 a 249)", items: ["11. Dos Crimes c/ Família (arts. 235 a 249)"] },
+      { title: "12. Crimes c/ Fé Pública (arts. 289 a 311-A)", items: ["12. Dos Crimes c/ Fé Pública (arts. 289 a 311-A)"] },
+      { title: "13. Crimes c/ Administração Pública (arts. 312 a 359-H)", items: ["13. Dos Crimes c/ Administração Pública (arts. 312 a 359-H)"] },
+      { title: "14. Crimes c/ Estado Democrático de Direito", items: ["14. Crimes c/ Estado Democrático de Direito (arts. 359-I a 359-T)"] },
+      { title: "15. Leis Especiais", items: [
+        "15.1 Estatuto do Desarmamento (Lei 10.826/03)",
+        "15.2 Lei de Drogas (Lei 11.343/06)",
+        "15.3 Lei de Lavagem de Dinheiro (Lei 9.613/98)",
+        "15.4 Lei dos Crimes Ambientais (Lei 9.605/98)",
+        "15.5 Lei dos Crimes c/ Ordem Tributária (Lei 8.137/90)",
+        "15.6 Lei dos Crimes Hediondos (Lei 8.072/90)",
+        "15.7 Leis Esparsas"
+      ]},
+      { title: "16. Teoria e Princípios", items: ["16. Teoria e Princípios"] }
+    ]
+  },
+  {
+    name: "Direito Processual Civil", icon: "📑",
+    groups: [
+      { title: "1. Das Normas Processuais Civis", items: ["1. Das Normas Processuais Civis (arts. 1º a 15)"] },
+      { title: "2. Da Função Jurisdicional", items: [
+        "2.1 Da Jurisdição e da Ação (arts. 16 a 20)",
+        "2.2 Da Competência Interna (arts. 42 a 69)"
+      ]},
+      { title: "3. Dos Sujeitos do Processo", items: [
+        "3.1.1 Da Capacidade Processual (arts. 70 a 76)",
+        "3.1.2 Deveres das Partes e dos Procuradores (arts. 77 a 102)",
+        "3.1.3 Dos Procuradores, Sucessão das Partes (arts. 103 a 112)",
+        "3.2 Do Litisconsórcio (arts. 113 a 118)",
+        "3.3 Da Intervenção de Terceiros (arts. 119 a 138)",
+        "3.4 Do Juiz e dos Auxiliares da Justiça (arts. 139 a 175)"
+      ]},
+      { title: "4. Dos Atos Processuais", items: [
+        "4.1 Da Forma, do Tempo e do Lugar (arts. 188 a 235)",
+        "4.2 Da Comunicação dos Atos Processuais (arts. 236 a 275)",
+        "4.3 Das Nulidades (arts. 276 a 283)",
+        "4.4 Da Distribuição/Registro, Valor da Causa (arts. 284 a 293)"
+      ]},
+      { title: "5. Da Tutela Provisória (arts. 294 a 311)", items: ["5. Da Tutela Provisória (arts. 294 a 311)"] },
+      { title: "6. Formação, Suspensão e Extinção do Processo", items: ["6. Formação, Suspensão e Extinção do Processo (arts. 312 a 317)"] },
+      { title: "7. Processo de Conhecimento e Cumprimento de Sentença", items: [
+        "7.1.1 Disposições Gerais, Petição Inicial (arts. 318 a 331)",
+        "7.1.2 Improcedência Liminar do Pedido (art. 332)",
+        "7.1.3 Contestação, Reconvenção, Revelia (arts. 335 a 346)",
+        "7.1.4 Providências Preliminares e Saneamento (arts. 347 a 353)",
+        "7.1.5 Das Provas (arts. 369 a 484)",
+        "7.1.6 Sentença e Coisa Julgada (arts. 485 a 508)",
+        "7.2 Cumprimento da Sentença (arts. 513 a 538)",
+        "7.3 Procedimentos Especiais (arts. 539 a 770)"
+      ]},
+      { title: "8. Processo de Execução", items: [
+        "8.1 Da Execução em Geral (arts. 771 a 796)",
+        "8.2 Diversas Espécies de Execução (arts. 797 a 913)",
+        "8.3 Suspensão e Extinção (arts. 921 a 925)"
+      ]},
+      { title: "9. Processos nos Tribunais e Meios de Impugnação", items: [
+        "9.1.1 Incidentes (IAC, IAI, IRDR)",
+        "9.1.2 Homologação de Decisão Estrangeira (arts. 960 a 965)",
+        "9.1.3 Ação Rescisória (arts. 966 a 975)",
+        "9.1.4 Reclamação (arts. 988 a 993)",
+        "9.2.1 Recursos — Disposições Gerais (arts. 994 a 1.008)",
+        "9.2.2 Apelação (arts. 1.009 a 1.014)",
+        "9.2.3 Agravo (arts. 1.015 a 1.021)",
+        "9.2.4 Embargos de Declaração (arts. 1.022 a 1.026)",
+        "9.2.5 Recursos para STF/STJ (arts. 1.027 a 1.044)"
+      ]},
+      { title: "10. Leis Especiais", items: [
+        "10.1 Lei de Arbitragem (Lei 9.307/96)",
+        "10.2 Lei de Execução Fiscal (Lei 6.830/80)",
+        "10.3 Lei de Mediação (Lei 13.140/15)",
+        "10.4 Leis dos Juizados Especiais"
+      ]},
+      { title: "11. Teoria e Princípios", items: ["11. Teoria e Princípios"] }
+    ]
+  },
+  {
+    name: "Direito Processual Penal", icon: "🔎",
+    groups: [
+      { title: "1. Disposições Preliminares (arts. 1º a 3º)", items: ["1. Disposições Preliminares (arts. 1º a 3º)"] },
+      { title: "2. Do Inquérito Policial (arts. 4º a 23)", items: ["2. Do Inquérito Policial (arts. 4º a 23)"] },
+      { title: "3. Da Ação Penal/Civil (arts. 24 a 68)", items: ["3. Da Ação Penal/Civil (arts. 24 a 68)"] },
+      { title: "4. Da Competência (arts. 69 a 91)", items: ["4. Da Competência (arts. 69 a 91)"] },
+      { title: "5. Questões e Processos Incidentes (arts. 92 a 154)", items: ["5. Das Questões e Processos Incidentes (arts. 92 a 154)"] },
+      { title: "6. Da Prova (arts. 155 a 250)", items: ["6. Da Prova (arts. 155 a 250)"] },
+      { title: "7. Dos Sujeitos do Processo (arts. 251 a 281)", items: ["7. Dos Sujeitos do Processo (arts. 251 a 281)"] },
+      { title: "8. Prisão, Medidas Cautelares e Liberdade Provisória", items: ["8. Prisão, Medidas Cautelares e Liberdade Provisória (arts. 282 a 350)"] },
+      { title: "9. Das Citações e Intimações (arts. 351 a 372)", items: ["9. Das Citações e Intimações (arts. 351 a 372)"] },
+      { title: "10. Da Sentença (arts. 381 a 393)", items: ["10. Da Sentença (arts. 381 a 393)"] },
+      { title: "11. Do Processo Comum", items: ["11.1 Da Instrução Criminal (arts. 394 a 405)"] },
+      { title: "12. Nulidades e Recursos em Geral", items: [
+        "12.1 Das Nulidades (arts. 563 a 573)",
+        "12.2 Dos Recursos (arts. 574 a 667)"
+      ]},
+      { title: "13. Leis Especiais", items: [
+        "13.1 Lei das Organizações Criminosas (Lei 12.850/13)",
+        "13.2 Lei da Prisão Temporária (Lei 7.960/89)",
+        "13.3 Lei de Execução Penal (Lei 7.210/84)",
+        "13.4 Lei de Interceptação Telefônica (Lei 9.296/96)",
+        "13.5 Lei dos Juizados Especiais (Lei 9.099/95)",
+        "13.6 Lei Maria da Penha (Lei 11.340/06)",
+        "13.7 Leis Esparsas"
+      ]},
+      { title: "14. Teoria e Princípios", items: ["14. Teoria e Princípios"] }
+    ]
+  },
+  {
+    name: "Direito Tributário", icon: "💰",
+    groups: [
+      { title: "1. Competência Tributária (CTN, arts. 6º a 15)", items: ["1. Competência Tributária (CTN, arts. 6º a 15)"] },
+      { title: "2. Impostos, Taxas e Contribuições", items: ["2. Impostos, Taxas e Contribuições (CTN arts. 16-82; CF arts. 145, 148, 149, 195)"] },
+      { title: "3. Legislação Tributária (CTN, arts. 96 a 112)", items: ["3. Legislação Tributária (CTN, arts. 96 a 112)"] },
+      { title: "4. Obrigação Tributária (CTN, arts. 113 a 138)", items: ["4. Obrigação Tributária (CTN, arts. 113 a 138)"] },
+      { title: "5. Crédito Tributário (CTN, arts. 139 a 193)", items: ["5. Crédito Tributário (CTN, arts. 139 a 193)"] },
+      { title: "6. Administração Tributária (CTN, arts. 194 a 208)", items: ["6. Administração Tributária (CTN, arts. 194 a 208)"] },
+      { title: "7. Dos Princípios Gerais (CF, arts. 145 a 149-A)", items: ["7. Dos Princípios Gerais (CF, arts. 145 a 149-A)"] },
+      { title: "8. Limitações do Poder de Tributar (CF, arts. 150 a 152)", items: ["8. Limitações do Poder de Tributar (CF, arts. 150 a 152)"] },
+      { title: "9. Impostos da União (CF, arts. 153 a 154)", items: ["9. Impostos da União (CF, arts. 153 a 154)"] },
+      { title: "10. Impostos dos Estados/DF (CF, art. 155)", items: ["10. Impostos dos Estados/DF (CF, art. 155)"] },
+      { title: "11. Impostos dos Municípios (CF, art. 156)", items: ["11. Impostos dos Municípios (CF, art. 156)"] },
+      { title: "12. Imposto sobre Bens e Serviços (CF, arts. 156-A e 156-B)", items: ["12. Imposto sobre Bens e Serviços (CF, arts. 156-A e 156-B)"] },
+      { title: "13. Repartição das Receitas Tributárias (CF, arts. 157 a 162)", items: ["13. Repartição das Receitas Tributárias (CF, arts. 157 a 162)"] }
+    ]
+  },
+  {
+    name: "Conhecimentos Gerais", icon: "🌎",
+    groups: [
+      { title: "Conhecimentos Gerais", items: [
+        "1. Artes, Cultura, Esportes",
+        "2. Atualidades",
+        "3. Ciência e Tecnologia",
+        "4. Economia",
+        "5. Geografia",
+        "6. História",
+        "7. Meio Ambiente",
+        "8. Saúde Pública",
+        "9. Sociologia"
+      ]}
+    ]
+  }
+];
+
+/* PERSISTÊNCIA E MIGRAÇÃO */
+const STORAGE_KEY = "cronograma_cartorio_v4";
+const OLD_KEYS = ["cronograma_cartorio_v3", "cronograma_cartorio_v2", "cronograma_cartorio_v1"];
+const OPEN_KEY = "cronograma_cartorio_open_v1";
+const EXPANDED_KEY = "cronograma_cartorio_expanded_v1";
+const THEME_KEY = "cronograma_cartorio_theme_v1";
+
+let state = loadState();
+let openDisciplines = loadSet(OPEN_KEY);
+let expandedTopics = loadSet(EXPANDED_KEY);
+let currentFilter = "all";
+let searchTerm = "";
+
+function topicId(d, g, i) { return `${d}|${g}|${i}`; }
+function countLines(s) {
+  if (!s) return 0;
+  return String(s).split("\n").map(x => x.trim()).filter(Boolean).length;
+}
+function emptyTopic() { return { done: false, q: 0, qd: 0, s: 0, d: 0 }; }
+function ensureTopic(id) {
+  if (!state[id] || typeof state[id] !== "object") state[id] = emptyTopic();
+  const t = state[id];
+  if (typeof t.q !== "number") t.q = 0;
+  if (typeof t.qd !== "number") t.qd = 0;
+  if (typeof t.s !== "number") t.s = 0;
+  if (typeof t.d !== "number") t.d = 0;
+  return t;
+}
+
+function migrateRecord(v) {
+  if (v === true) return { done: true, q: 0, qd: 0, s: 0, d: 0 };
+  if (v && typeof v === "object") {
+    return {
+      done: !!v.done,
+      q: +v.q || 0,
+      qd: +v.qd || 0,
+      s: typeof v.s === "number" ? v.s : countLines(v.sumulas),
+      d: typeof v.d === "number" ? v.d : countLines(v.decisoes)
+    };
+  }
+  return null;
+}
+
+function loadState() {
+  try {
+    let raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+    for (const oldKey of OLD_KEYS) {
+      raw = localStorage.getItem(oldKey);
+      if (raw) {
+        const old = JSON.parse(raw) || {};
+        const migrated = {};
+        Object.keys(old).forEach(k => {
+          if (k === "__updated") { migrated.__updated = old[k]; return; }
+          const m = migrateRecord(old[k]);
+          if (m) migrated[k] = m;
+        });
+        return migrated;
+      }
+    }
+    return {};
+  } catch { return {}; }
+}
+function saveState() {
+  state.__updated = Date.now();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  updateLastUpdate();
+}
+function updateLastUpdate() {
+  if (state.__updated) {
+    document.getElementById("last-update").textContent =
+      "Atualizado em " + new Date(state.__updated).toLocaleString("pt-BR");
+  }
+}
+function loadSet(key) {
+  try { return new Set(JSON.parse(localStorage.getItem(key)) || []); }
+  catch { return new Set(); }
+}
+function saveSet(key, set) { localStorage.setItem(key, JSON.stringify([...set])); }
+
+/* STATS */
+function topicStats(id) {
+  const t = state[id];
+  if (!t || typeof t !== "object") return { done: false, q: 0, qd: 0, s: 0, d: 0 };
+  return { done: !!t.done, q: t.q || 0, qd: t.qd || 0, s: t.s || 0, d: t.d || 0 };
+}
+function disciplineStats(di) {
+  const d = SYLLABUS[di];
+  let total = 0, done = 0, q = 0, qd = 0, s = 0, dec = 0;
+  d.groups.forEach((g, gi) => {
+    g.items.forEach((_, ii) => {
+      total++;
+      const t = topicStats(topicId(di, gi, ii));
+      if (t.done) done++;
+      q += t.q; qd += t.qd; s += t.s; dec += t.d;
+    });
+  });
+  return { total, done, pct: total ? Math.round((done / total) * 100) : 0, q, qd, s, d: dec };
+}
+function overallStats() {
+  let total = 0, done = 0, q = 0, qd = 0, s = 0, d = 0;
+  SYLLABUS.forEach((_, di) => {
+    const ds = disciplineStats(di);
+    total += ds.total; done += ds.done; q += ds.q; qd += ds.qd; s += ds.s; d += ds.d;
+  });
+  return { total, done, pct: total ? Math.round((done / total) * 100) : 0, q, qd, s, d };
+}
+function colorForPct(pct) {
+  if (pct >= 100) return "var(--success)";
+  if (pct >= 60) return "#34c759";
+  if (pct >= 30) return "var(--warning)";
+  return "var(--accent)";
+}
+
+/* FILTROS */
+function matchesFilter(di, gi, ii) {
+  const id = topicId(di, gi, ii);
+  const t = topicStats(id);
+  if (currentFilter === "done" && !t.done) return false;
+  if (currentFilter === "pending" && t.done) return false;
+  if (searchTerm) {
+    const text = (SYLLABUS[di].name + " " + SYLLABUS[di].groups[gi].title + " " + SYLLABUS[di].groups[gi].items[ii]).toLowerCase();
+    if (!text.includes(searchTerm)) return false;
+  }
+  return true;
+}
+function disciplineMatchesFilter(di) {
+  const s = disciplineStats(di);
+  if (currentFilter === "started" && (s.done === 0 || s.done === s.total)) return false;
+  if (currentFilter === "untouched" && s.done > 0) return false;
+  return true;
+}
+
+/* RENDER */
+const elDisc = document.getElementById("disciplines");
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+}
+
+function render() {
+  elDisc.innerHTML = "";
+
+  SYLLABUS.forEach((disc, di) => {
+    if (!disciplineMatchesFilter(di)) return;
+    if (searchTerm) {
+      let any = false;
+      disc.groups.forEach((g, gi) => g.items.forEach((_, ii) => { if (matchesFilter(di, gi, ii)) any = true; }));
+      if (!any) return;
+    }
+
+    const s = disciplineStats(di);
+    const card = document.createElement("div");
+    card.className = "discipline" + (openDisciplines.has(di) ? " open" : "");
+    card.dataset.di = di;
+
+    const header = document.createElement("div");
+    header.className = "discipline-header";
+    header.innerHTML = `
+      <div class="disc-num">${disc.icon}</div>
+      <div class="disc-info">
+        <div class="disc-name">${di + 1}. ${escapeHtml(disc.name)}</div>
+        <div class="disc-meta">
+          <div class="mini-bar"><div class="mini-fill" style="width:${s.pct}%; background:${colorForPct(s.pct)}"></div></div>
+          <div class="disc-pct">${s.pct}% · ${s.done}/${s.total}</div>
+        </div>
+        <div class="disc-totals">
+          <span>❓ <b>${s.q}</b></span>
+          <span>✍️ <b>${s.qd}</b></span>
+          <span>📌 <b>${s.s}</b></span>
+          <span>⚖️ <b>${s.d}</b></span>
+        </div>
+      </div>
+      <div class="chev">›</div>
+    `;
+    header.addEventListener("click", () => {
+      if (openDisciplines.has(di)) openDisciplines.delete(di);
+      else openDisciplines.add(di);
+      saveSet(OPEN_KEY, openDisciplines);
+      render();
+    });
+    card.appendChild(header);
+
+    const topics = document.createElement("div");
+    topics.className = "topics";
+
+    disc.groups.forEach((g, gi) => {
+      const visibleItems = g.items.map((item, ii) => ({ item, ii })).filter(({ ii }) => matchesFilter(di, gi, ii));
+      if (visibleItems.length === 0 && (searchTerm || currentFilter !== "all")) return;
+
+      const groupEl = document.createElement("div");
+      groupEl.className = "topic-group";
+      const groupHeader = document.createElement("div");
+      groupHeader.className = "topic-group-header";
+      groupHeader.innerHTML = `
+        <span>${escapeHtml(g.title)}</span>
+        <div class="topic-group-actions">
+          <span class="group-action" data-action="all" data-di="${di}" data-gi="${gi}">✓ Todos</span>
+          <span class="group-action" data-action="none" data-di="${di}" data-gi="${gi}">✗ Limpar</span>
+        </div>
+      `;
+      groupEl.appendChild(groupHeader);
+
+      visibleItems.forEach(({ item, ii }) => {
+        const id = topicId(di, gi, ii);
+        const t = topicStats(id);
+        const expanded = expandedTopics.has(id);
+        const wrap = document.createElement("div");
+        wrap.className = "topic-item" + (t.done ? " done" : "") + (expanded ? " expanded" : "");
+        wrap.dataset.id = id;
+        wrap.innerHTML = `
+          <div class="topic-row">
+            <div class="checkbox" data-toggle="done"></div>
+            <div class="topic-text-wrap">
+              <div class="topic-text">${escapeHtml(item)}</div>
+              <div class="topic-badges">
+                <span class="badge q">❓ ${t.q}</span>
+                <span class="badge qd">✍️ ${t.qd}</span>
+                <span class="badge s">📌 ${t.s}</span>
+                <span class="badge d">⚖️ ${t.d}</span>
+              </div>
+            </div>
+            <div class="arrow">›</div>
+          </div>
+          <div class="topic-detail">${renderDetail(id, t)}</div>
+        `;
+        groupEl.appendChild(wrap);
+
+        wrap.querySelector('[data-toggle="done"]').addEventListener("click", e => {
+          e.stopPropagation();
+          ensureTopic(id).done = !ensureTopic(id).done;
+          saveState();
+          render();
+        });
+        wrap.querySelector(".topic-row").addEventListener("click", e => {
+          if (e.target.closest('[data-toggle="done"]')) return;
+          if (expandedTopics.has(id)) expandedTopics.delete(id);
+          else expandedTopics.add(id);
+          saveSet(EXPANDED_KEY, expandedTopics);
+          render();
+        });
+        if (expanded) attachDetailHandlers(wrap, id);
+      });
+      topics.appendChild(groupEl);
+    });
+    card.appendChild(topics);
+    elDisc.appendChild(card);
+  });
+
+  document.querySelectorAll(".group-action").forEach(el => {
+    el.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const di = +el.dataset.di, gi = +el.dataset.gi;
+      const fill = el.dataset.action === "all";
+      SYLLABUS[di].groups[gi].items.forEach((_, ii) => {
+        const id = topicId(di, gi, ii);
+        if (fill) ensureTopic(id).done = true;
+        else if (state[id]) state[id].done = false;
+      });
+      saveState();
+      render();
+      toast(fill ? "Tópicos marcados ✓" : "Tópicos desmarcados");
+    });
+  });
+
+  const o = overallStats();
+  document.getElementById("overall-pct").textContent = o.pct + "%";
+  document.getElementById("overall-count").textContent = `${o.done} de ${o.total} tópicos`;
+  document.getElementById("overall-bar").style.width = o.pct + "%";
+  document.getElementById("t-q").textContent = o.q;
+  document.getElementById("t-qd").textContent = o.qd;
+  document.getElementById("t-s").textContent = o.s;
+  document.getElementById("t-d").textContent = o.d;
+  updateLastUpdate();
+}
+
+function renderDetail(id, t) {
+  return `
+    <div class="detail-row">
+      <div class="toggle-line">
+        <div class="toggle-line-text">Marcar como estudado</div>
+        <div class="toggle ${t.done ? "on" : ""}" data-act="toggle-done"></div>
+      </div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-title">
+        <span>❓ Questões objetivas</span>
+        <span class="count">${t.q}</span>
+      </div>
+      <div class="stepper">
+        <div class="center">
+          <div class="step-btn" data-act="q-dec">−</div>
+          <div class="step-val">${t.q}</div>
+          <div class="step-btn" data-act="q-inc">+</div>
+        </div>
+        <div class="step-quick">
+          <div class="quick-btn" data-act="q-add" data-n="5">+5</div>
+          <div class="quick-btn" data-act="q-add" data-n="10">+10</div>
+          <div class="quick-btn" data-act="q-zero">Zerar</div>
+        </div>
+      </div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-title qd">
+        <span>✍️ Questões dissertativas</span>
+        <span class="count">${t.qd}</span>
+      </div>
+      <div class="stepper">
+        <div class="center">
+          <div class="step-btn" data-act="qd-dec">−</div>
+          <div class="step-val">${t.qd}</div>
+          <div class="step-btn" data-act="qd-inc">+</div>
+        </div>
+        <div class="step-quick">
+          <div class="quick-btn" data-act="qd-add" data-n="5">+5</div>
+          <div class="quick-btn" data-act="qd-zero">Zerar</div>
+        </div>
+      </div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-title s">
+        <span>📌 Súmulas estudadas</span>
+        <span class="count">${t.s}</span>
+      </div>
+      <div class="stepper">
+        <div class="center">
+          <div class="step-btn" data-act="s-dec">−</div>
+          <div class="step-val">${t.s}</div>
+          <div class="step-btn" data-act="s-inc">+</div>
+        </div>
+        <div class="step-quick">
+          <div class="quick-btn" data-act="s-add" data-n="5">+5</div>
+          <div class="quick-btn" data-act="s-zero">Zerar</div>
+        </div>
+      </div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-title d">
+        <span>⚖️ Decisões revisadas</span>
+        <span class="count">${t.d}</span>
+      </div>
+      <div class="stepper">
+        <div class="center">
+          <div class="step-btn" data-act="d-dec">−</div>
+          <div class="step-val">${t.d}</div>
+          <div class="step-btn" data-act="d-inc">+</div>
+        </div>
+        <div class="step-quick">
+          <div class="quick-btn" data-act="d-add" data-n="5">+5</div>
+          <div class="quick-btn" data-act="d-zero">Zerar</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function attachDetailHandlers(wrap, id) {
+  const detail = wrap.querySelector(".topic-detail");
+  if (!detail) return;
+  const toggle = detail.querySelector('[data-act="toggle-done"]');
+  if (toggle) toggle.addEventListener("click", e => {
+    e.stopPropagation();
+    const cur = ensureTopic(id);
+    cur.done = !cur.done;
+    saveState();
+    render();
+  });
+  function bindStepper(field) {
+    const inc = detail.querySelector(`[data-act="${field}-inc"]`);
+    const dec = detail.querySelector(`[data-act="${field}-dec"]`);
+    const zero = detail.querySelector(`[data-act="${field}-zero"]`);
+    const adds = detail.querySelectorAll(`[data-act="${field}-add"]`);
+    const update = (delta, set) => {
+      const cur = ensureTopic(id);
+      if (typeof set === "number") cur[field] = set;
+      else cur[field] = Math.max(0, (cur[field] || 0) + delta);
+      saveState();
+      render();
+    };
+    if (inc) inc.addEventListener("click", e => { e.stopPropagation(); update(1); });
+    if (dec) dec.addEventListener("click", e => { e.stopPropagation(); update(-1); });
+    if (zero) zero.addEventListener("click", e => { e.stopPropagation(); update(0, 0); });
+    adds.forEach(b => b.addEventListener("click", e => { e.stopPropagation(); update(+b.dataset.n); }));
+  }
+  bindStepper("q");
+  bindStepper("qd");
+  bindStepper("s");
+  bindStepper("d");
+}
+
+/* CONTROLES */
+document.querySelectorAll(".chip").forEach(c => {
+  c.addEventListener("click", () => {
+    document.querySelectorAll(".chip").forEach(x => x.classList.remove("active"));
+    c.classList.add("active");
+    currentFilter = c.dataset.filter;
+    if (currentFilter !== "all") openDisciplines = new Set(SYLLABUS.map((_, i) => i));
+    saveSet(OPEN_KEY, openDisciplines);
+    render();
+  });
+});
+document.getElementById("search").addEventListener("input", e => {
+  searchTerm = e.target.value.trim().toLowerCase();
+  if (searchTerm) openDisciplines = new Set(SYLLABUS.map((_, i) => i));
+  render();
+});
+document.getElementById("btn-collapse").addEventListener("click", () => {
+  openDisciplines.clear();
+  expandedTopics.clear();
+  saveSet(OPEN_KEY, openDisciplines);
+  saveSet(EXPANDED_KEY, expandedTopics);
+  render();
+});
+document.getElementById("btn-expand").addEventListener("click", () => {
+  openDisciplines = new Set(SYLLABUS.map((_, i) => i));
+  saveSet(OPEN_KEY, openDisciplines);
+  render();
+});
+
+function applyTheme(t) {
+  document.body.classList.toggle("dark", t === "dark");
+  localStorage.setItem(THEME_KEY, t);
+}
+document.getElementById("btn-theme").addEventListener("click", () => {
+  const cur = localStorage.getItem(THEME_KEY) === "dark" ? "light" : "dark";
+  applyTheme(cur);
+});
+applyTheme(localStorage.getItem(THEME_KEY) || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
+
+const modalBg = document.getElementById("modal-bg");
+document.getElementById("btn-menu").addEventListener("click", () => modalBg.classList.add("open"));
+document.getElementById("modal-close").addEventListener("click", () => modalBg.classList.remove("open"));
+modalBg.addEventListener("click", e => { if (e.target === modalBg) modalBg.classList.remove("open"); });
+
+document.getElementById("btn-reset").addEventListener("click", () => {
+  if (confirm("Resetar TODO o progresso? Esta ação não pode ser desfeita.")) {
+    state = {};
+    localStorage.removeItem(STORAGE_KEY);
+    modalBg.classList.remove("open");
+    render();
+    toast("Progresso resetado");
+  }
+});
+document.getElementById("btn-export").addEventListener("click", () => {
+  const data = JSON.stringify({ version: 4, exportedAt: new Date().toISOString(), state }, null, 2);
+  const blob = new Blob([data], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `cronograma-cartorio-${new Date().toISOString().slice(0,10)}.json`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  toast("Backup exportado ✓");
+});
+document.getElementById("btn-import").addEventListener("click", () => {
+  document.getElementById("file-import").click();
+});
+document.getElementById("file-import").addEventListener("change", e => {
+  const f = e.target.files[0]; if (!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    try {
+      const obj = JSON.parse(r.result);
+      const imported = obj.state || obj;
+      if (typeof imported !== "object") throw new Error("formato inválido");
+      const migrated = {};
+      Object.keys(imported).forEach(k => {
+        if (k === "__updated") { migrated.__updated = imported[k]; return; }
+        const m = migrateRecord(imported[k]);
+        if (m) migrated[k] = m;
+      });
+      if (confirm("Importar e SOBRESCREVER o progresso atual?")) {
+        state = migrated;
+        saveState();
+        modalBg.classList.remove("open");
+        render();
+        toast("Progresso importado ✓");
+      }
+    } catch (err) { alert("Arquivo inválido: " + err.message); }
+  };
+  r.readAsText(f);
+  e.target.value = "";
+});
+document.getElementById("btn-stats").addEventListener("click", () => {
+  const o = overallStats();
+  const lines = SYLLABUS.map((d, di) => {
+    const s = disciplineStats(di);
+    return `${di+1}. ${d.name}\n   ${s.pct}% (${s.done}/${s.total})\n   ❓${s.q} ✍️${s.qd} 📌${s.s} ⚖️${s.d}`;
+  });
+  alert(`📊 Estatísticas Gerais\n\nProgresso: ${o.pct}% (${o.done}/${o.total})\nObjetivas: ${o.q}\nDissertativas: ${o.qd}\nSúmulas: ${o.s}\nDecisões: ${o.d}\n\n${lines.join("\n\n")}`);
+});
+
+function toast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(t._h);
+  t._h = setTimeout(() => t.classList.remove("show"), 1600);
+}
+
+try { render(); }
+catch(err) {
+  var b = document.getElementById("err-box");
+  if (b) { b.style.display = "block"; b.textContent = "Falha no render: " + err.message + "\n\n" + (err.stack || ""); }
+}
+</script>
+</body>
+</html>

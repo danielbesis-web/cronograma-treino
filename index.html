@@ -9,184 +9,78 @@
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230a84ff'/%3E%3Ctext x='50' y='66' font-size='56' text-anchor='middle' fill='white' font-family='-apple-system'%3E📚%3C/text%3E%3C/svg%3E" />
 <style>
   :root {
-    --bg: #f2f2f7;
-    --card: #ffffff;
-    --card-2: #f9f9fb;
-    --text: #1c1c1e;
-    --text-2: #6e6e73;
-    --text-3: #8e8e93;
-    --accent: #0a84ff;
-    --accent-soft: #e6f0ff;
-    --success: #34c759;
-    --warning: #ff9500;
-    --danger: #ff3b30;
-    --purple: #5856d6;
-    --teal: #5ac8fa;
-    --border: #e5e5ea;
-    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --bg: #f2f2f7; --card: #ffffff; --card-2: #f9f9fb;
+    --text: #1c1c1e; --text-2: #6e6e73; --text-3: #8e8e93;
+    --accent: #0a84ff; --accent-soft: #e6f0ff;
+    --success: #34c759; --warning: #ff9500; --danger: #ff3b30;
+    --purple: #5856d6; --teal: #5ac8fa;
+    --border: #e5e5ea; --shadow: 0 2px 12px rgba(0,0,0,0.06);
     --radius: 16px;
   }
   body.dark {
-    --bg: #000000;
-    --card: #1c1c1e;
-    --card-2: #2c2c2e;
-    --text: #ffffff;
-    --text-2: #aeaeb2;
-    --text-3: #8e8e93;
-    --accent: #0a84ff;
-    --accent-soft: #1c2e4a;
-    --border: #38383a;
-    --shadow: 0 2px 12px rgba(0,0,0,0.4);
+    --bg: #000000; --card: #1c1c1e; --card-2: #2c2c2e;
+    --text: #ffffff; --text-2: #aeaeb2; --text-3: #8e8e93;
+    --accent: #0a84ff; --accent-soft: #1c2e4a;
+    --border: #38383a; --shadow: 0 2px 12px rgba(0,0,0,0.4);
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  html, body {
-    margin: 0; padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    -webkit-font-smoothing: antialiased;
-    min-height: 100%;
-  }
+  html, body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; min-height: 100%; }
   body { min-height: 100vh; }
-  .container {
-    max-width: 760px;
-    margin: 0 auto;
-    padding-left: 14px;
-    padding-right: 14px;
-    padding-top: calc(env(safe-area-inset-top, 0px) + 14px);
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 110px);
-  }
-  header {
-    padding-bottom: 14px;
-    margin-bottom: 12px;
-    border-bottom: 1px solid var(--border);
-  }
+  .container { max-width: 760px; margin: 0 auto; padding-left: 14px; padding-right: 14px; padding-top: calc(env(safe-area-inset-top, 0px) + 14px); padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 110px); }
+  header { padding-bottom: 14px; margin-bottom: 12px; border-bottom: 1px solid var(--border); }
   .title-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
   h1 { font-size: 22px; margin: 0; font-weight: 700; letter-spacing: -0.5px; }
   .subtitle { font-size: 12px; color: var(--text-2); margin-top: 2px; }
-  .icon-btn {
-    width: 36px; height: 36px; border-radius: 50%;
-    background: var(--card); border: 1px solid var(--border);
-    display: inline-flex; align-items: center; justify-content: center;
-    font-size: 18px; cursor: pointer; color: var(--text);
-  }
+  .icon-btn { width: 36px; height: 36px; border-radius: 50%; background: var(--card); border: 1px solid var(--border); display: inline-flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; color: var(--text); }
   .icon-btn:active { transform: scale(0.92); }
   .header-actions { display: flex; gap: 8px; }
 
-  .overall-card {
-    background: linear-gradient(135deg, #0a84ff 0%, #5856d6 100%);
-    color: white;
-    border-radius: var(--radius);
-    padding: 18px;
-    box-shadow: var(--shadow);
-    margin-bottom: 14px;
-  }
-  .overall-top {
-    display: flex; justify-content: space-between; align-items: baseline;
-  }
+  .overall-card { background: linear-gradient(135deg, #0a84ff 0%, #5856d6 100%); color: white; border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); margin-bottom: 14px; }
+  .overall-top { display: flex; justify-content: space-between; align-items: baseline; }
   .overall-label { font-size: 13px; opacity: 0.9; font-weight: 500; letter-spacing: 0.2px; }
   .overall-pct { font-size: 42px; font-weight: 700; letter-spacing: -1px; line-height: 1; }
   .overall-count { font-size: 12px; opacity: 0.9; margin-top: 4px; }
-  .bar {
-    height: 8px; background: rgba(255,255,255,0.22); border-radius: 100px; overflow: hidden;
-    margin-top: 12px;
-  }
+  .bar { height: 8px; background: rgba(255,255,255,0.22); border-radius: 100px; overflow: hidden; margin-top: 12px; }
   .bar-fill { height: 100%; background: white; border-radius: 100px; transition: width 0.4s ease; }
-  .overall-totals {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;
-    margin-top: 14px;
-  }
-  .ot-cell {
-    background: rgba(255,255,255,0.15);
-    border-radius: 10px; padding: 8px 6px;
-    text-align: center;
-  }
+  .overall-totals { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 14px; }
+  .ot-cell { background: rgba(255,255,255,0.15); border-radius: 10px; padding: 8px 6px; text-align: center; }
   .ot-num { font-size: 17px; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
   .ot-lbl { font-size: 9px; opacity: 0.9; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.3px; }
 
   .search { margin-bottom: 12px; position: relative; }
-  .search input {
-    width: 100%; padding: 11px 14px 11px 38px;
-    border-radius: 12px; border: 1px solid var(--border);
-    background: var(--card); color: var(--text);
-    font-size: 15px; outline: none; -webkit-appearance: none;
-  }
-  .search::before {
-    content: "🔍"; position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
-    font-size: 14px; opacity: 0.6;
-  }
-  .quick-actions {
-    display: flex; gap: 8px; margin-bottom: 14px; overflow-x: auto;
-    -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 2px;
-  }
+  .search input { width: 100%; padding: 11px 14px 11px 38px; border-radius: 12px; border: 1px solid var(--border); background: var(--card); color: var(--text); font-size: 15px; outline: none; -webkit-appearance: none; }
+  .search::before { content: "🔍"; position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 14px; opacity: 0.6; }
+  .quick-actions { display: flex; gap: 8px; margin-bottom: 14px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 2px; }
   .quick-actions::-webkit-scrollbar { display: none; }
-  .chip {
-    flex: 0 0 auto;
-    padding: 7px 13px; border-radius: 100px;
-    background: var(--card); border: 1px solid var(--border);
-    font-size: 13px; color: var(--text); cursor: pointer;
-    font-weight: 500; white-space: nowrap;
-  }
+  .chip { flex: 0 0 auto; padding: 7px 13px; border-radius: 100px; background: var(--card); border: 1px solid var(--border); font-size: 13px; color: var(--text); cursor: pointer; font-weight: 500; white-space: nowrap; }
   .chip.active { background: var(--accent); color: white; border-color: var(--accent); }
   .chip:active { opacity: 0.7; }
 
-  .discipline {
-    background: var(--card);
-    border-radius: var(--radius);
-    margin-bottom: 12px;
-    box-shadow: var(--shadow);
-    overflow: hidden;
-  }
-  .discipline-header {
-    padding: 14px 16px;
-    display: flex; align-items: center; gap: 12px;
-    cursor: pointer; user-select: none;
-  }
-  .disc-num {
-    flex: 0 0 36px; height: 36px;
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 16px;
-    background: var(--accent-soft); color: var(--accent);
-  }
+  .discipline { background: var(--card); border-radius: var(--radius); margin-bottom: 12px; box-shadow: var(--shadow); overflow: hidden; }
+  .discipline-header { padding: 14px 16px; display: flex; align-items: center; gap: 12px; cursor: pointer; user-select: none; }
+  .disc-num { flex: 0 0 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; background: var(--accent-soft); color: var(--accent); }
   .disc-info { flex: 1; min-width: 0; }
   .disc-name { font-size: 15px; font-weight: 600; line-height: 1.2; margin-bottom: 6px; }
+  .disc-name .page-tag { font-size: 11px; font-weight: 500; color: var(--text-3); margin-left: 6px; }
   .disc-meta { display: flex; align-items: center; gap: 10px; }
   .mini-bar { flex: 1; height: 6px; background: var(--border); border-radius: 100px; overflow: hidden; }
   .mini-fill { height: 100%; background: var(--accent); border-radius: 100px; transition: width 0.4s ease, background 0.3s; }
   .disc-pct { font-size: 13px; font-weight: 600; color: var(--text-2); flex: 0 0 auto; min-width: 60px; text-align: right; }
-  .disc-totals {
-    margin-top: 6px;
-    font-size: 11px;
-    color: var(--text-2);
-    display: flex; gap: 10px; flex-wrap: wrap;
-  }
+  .disc-totals { margin-top: 6px; font-size: 11px; color: var(--text-2); display: flex; gap: 10px; flex-wrap: wrap; }
   .disc-totals span b { color: var(--text); font-weight: 600; }
   .chev { flex: 0 0 auto; color: var(--text-3); font-size: 16px; transition: transform 0.2s; }
   .discipline.open .chev { transform: rotate(90deg); }
 
-  .topics {
-    display: none;
-    border-top: 1px solid var(--border);
-    background: var(--card-2);
-  }
+  .topics { display: none; border-top: 1px solid var(--border); background: var(--card-2); }
   .discipline.open .topics { display: block; }
 
   .topic-group { border-bottom: 1px solid var(--border); }
   .topic-group:last-child { border-bottom: none; }
-  .topic-group-header {
-    padding: 11px 16px 6px;
-    font-size: 12px; color: var(--text-2);
-    text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;
-    background: var(--card-2);
-    display: flex; align-items: center; justify-content: space-between; gap: 8px;
-  }
+  .topic-group-header { padding: 11px 16px 6px; font-size: 12px; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; background: var(--card-2); display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .topic-group-header .group-title { flex: 1; min-width: 0; }
+  .topic-group-header .group-title .page-tag { color: var(--accent); font-weight: 700; margin-left: 6px; text-transform: none; letter-spacing: 0; font-size: 11px; }
   .topic-group-actions { display: flex; gap: 6px; }
-  .group-action {
-    font-size: 11px; padding: 3px 8px; border-radius: 100px;
-    background: var(--card); color: var(--accent); cursor: pointer;
-    border: 1px solid var(--border); text-transform: none; letter-spacing: 0; font-weight: 500;
-  }
+  .group-action { font-size: 11px; padding: 3px 8px; border-radius: 100px; background: var(--card); color: var(--accent); cursor: pointer; border: 1px solid var(--border); text-transform: none; letter-spacing: 0; font-weight: 500; }
   .group-action:active { opacity: 0.6; }
 
   .topic-item { border-top: 1px solid var(--border); background: var(--card); }
@@ -194,23 +88,23 @@
   .topic-row { display: flex; align-items: center; gap: 12px; padding: 11px 16px; cursor: pointer; }
   .topic-row:active { background: var(--accent-soft); }
   .topic-item.done .topic-text { color: var(--text-3); text-decoration: line-through; }
-  .checkbox {
-    flex: 0 0 24px; height: 24px; border-radius: 50%;
-    border: 2px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    background: var(--card);
-  }
+  .checkbox { flex: 0 0 24px; height: 24px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; background: var(--card); }
   .topic-item.done .checkbox { background: var(--success); border-color: var(--success); }
   .topic-item.done .checkbox::after { content: "✓"; color: white; font-size: 14px; font-weight: 700; }
   .topic-text-wrap { flex: 1; min-width: 0; }
-  .topic-text { font-size: 14px; line-height: 1.35; color: var(--text); }
-  .topic-badges { display: flex; gap: 6px; margin-top: 5px; flex-wrap: wrap; }
-  .badge {
-    font-size: 10px; padding: 2px 7px; border-radius: 100px;
-    background: var(--card-2); color: var(--text-2);
-    border: 1px solid var(--border); font-weight: 600;
-    display: inline-flex; align-items: center; gap: 3px;
+  .topic-text { font-size: 14px; line-height: 1.35; color: var(--text); display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px; }
+  .topic-text .page-pill {
+    display: inline-flex; align-items: center;
+    font-size: 10px; padding: 1px 7px; border-radius: 100px;
+    background: var(--accent-soft); color: var(--accent);
+    font-weight: 700; font-variant-numeric: tabular-nums;
+    border: 1px solid rgba(10,132,255,0.2);
+    flex: 0 0 auto;
   }
+  body.dark .topic-text .page-pill { background: rgba(10,132,255,0.18); }
+  .topic-item.done .topic-text .page-pill { opacity: 0.5; }
+  .topic-badges { display: flex; gap: 6px; margin-top: 5px; flex-wrap: wrap; }
+  .badge { font-size: 10px; padding: 2px 7px; border-radius: 100px; background: var(--card-2); color: var(--text-2); border: 1px solid var(--border); font-weight: 600; display: inline-flex; align-items: center; gap: 3px; }
   .badge.q { color: var(--accent); border-color: rgba(10,132,255,0.25); background: var(--accent-soft); }
   .badge.qd { color: var(--teal); border-color: rgba(90,200,250,0.3); background: rgba(90,200,250,0.10); }
   .badge.s { color: var(--purple); border-color: rgba(88,86,214,0.25); background: rgba(88,86,214,0.08); }
@@ -221,32 +115,12 @@
   .arrow { flex: 0 0 auto; color: var(--text-3); font-size: 14px; transition: transform 0.2s; }
   .topic-item.expanded .arrow { transform: rotate(90deg); }
 
-  .topic-detail {
-    display: none;
-    padding: 6px 16px 16px;
-    background: var(--card-2);
-    border-top: 1px dashed var(--border);
-  }
+  .topic-detail { display: none; padding: 6px 16px 16px; background: var(--card-2); border-top: 1px dashed var(--border); }
   .topic-item.expanded .topic-detail { display: block; }
 
-  .detail-row {
-    background: var(--card);
-    border-radius: 12px;
-    padding: 12px;
-    margin-top: 10px;
-    border: 1px solid var(--border);
-  }
-  .detail-title {
-    font-size: 12px; font-weight: 700; color: var(--text-2);
-    text-transform: uppercase; letter-spacing: 0.4px;
-    margin-bottom: 8px;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .detail-title .count {
-    font-size: 13px; padding: 2px 8px; border-radius: 100px;
-    background: var(--accent-soft); color: var(--accent);
-    text-transform: none; letter-spacing: 0;
-  }
+  .detail-row { background: var(--card); border-radius: 12px; padding: 12px; margin-top: 10px; border: 1px solid var(--border); }
+  .detail-title { font-size: 12px; font-weight: 700; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
+  .detail-title .count { font-size: 13px; padding: 2px 8px; border-radius: 100px; background: var(--accent-soft); color: var(--accent); text-transform: none; letter-spacing: 0; }
   .detail-title.qd .count { background: rgba(90,200,250,0.15); color: var(--teal); }
   .detail-title.s .count { background: rgba(88,86,214,0.12); color: var(--purple); }
   .detail-title.d .count { background: rgba(255,149,0,0.12); color: var(--warning); }
@@ -256,94 +130,35 @@
 
   .stepper { display: flex; align-items: center; gap: 10px; justify-content: space-between; }
   .stepper .center { display: flex; align-items: center; gap: 12px; }
-  .step-btn {
-    width: 38px; height: 38px; border-radius: 50%;
-    border: 1px solid var(--border); background: var(--card);
-    font-size: 20px; font-weight: 600; color: var(--text);
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    user-select: none;
-  }
+  .step-btn { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--border); background: var(--card); font-size: 20px; font-weight: 600; color: var(--text); cursor: pointer; display: flex; align-items: center; justify-content: center; user-select: none; }
   .step-btn:active { background: var(--accent-soft); transform: scale(0.93); }
   .step-val { font-size: 22px; font-weight: 700; min-width: 50px; text-align: center; font-variant-numeric: tabular-nums; }
   .step-quick { display: flex; gap: 6px; }
-  .quick-btn {
-    font-size: 12px; padding: 5px 10px; border-radius: 100px;
-    border: 1px solid var(--border); background: var(--card);
-    color: var(--accent); cursor: pointer; font-weight: 500;
-  }
+  .quick-btn { font-size: 12px; padding: 5px 10px; border-radius: 100px; border: 1px solid var(--border); background: var(--card); color: var(--accent); cursor: pointer; font-weight: 500; }
   .quick-btn:active { opacity: 0.6; }
 
-  .toggle-line {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 12px;
-    background: var(--card); border-radius: 12px; border: 1px solid var(--border);
-  }
+  .toggle-line { display: flex; align-items: center; justify-content: space-between; padding: 12px; background: var(--card); border-radius: 12px; border: 1px solid var(--border); }
   .toggle-line-text { font-size: 14px; font-weight: 500; }
-  .toggle {
-    width: 50px; height: 30px; border-radius: 100px;
-    background: var(--border); position: relative; cursor: pointer;
-    transition: background 0.2s; flex: 0 0 auto;
-  }
-  .toggle::after {
-    content: ""; position: absolute; top: 3px; left: 3px;
-    width: 24px; height: 24px; border-radius: 50%; background: white;
-    transition: transform 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-  }
+  .toggle { width: 50px; height: 30px; border-radius: 100px; background: var(--border); position: relative; cursor: pointer; transition: background 0.2s; flex: 0 0 auto; }
+  .toggle::after { content: ""; position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: white; transition: transform 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
   .toggle.on { background: var(--success); }
   .toggle.on::after { transform: translateX(20px); }
 
-  .footer-actions {
-    position: fixed; left: 0; right: 0; bottom: 0;
-    background: var(--card);
-    border-top: 1px solid var(--border);
-    padding: 10px 14px;
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 10px);
-    display: flex; gap: 8px; justify-content: center;
-    z-index: 40;
-  }
-  .footer-btn {
-    flex: 1; max-width: 180px;
-    padding: 10px 14px; border-radius: 100px;
-    background: var(--card); border: 1px solid var(--border);
-    color: var(--text); font-size: 13px; font-weight: 500; cursor: pointer;
-  }
+  .footer-actions { position: fixed; left: 0; right: 0; bottom: 0; background: var(--card); border-top: 1px solid var(--border); padding: 10px 14px; padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 10px); display: flex; gap: 8px; justify-content: center; z-index: 40; }
+  .footer-btn { flex: 1; max-width: 180px; padding: 10px 14px; border-radius: 100px; background: var(--card); border: 1px solid var(--border); color: var(--text); font-size: 13px; font-weight: 500; cursor: pointer; }
   .footer-btn.primary { background: var(--accent); color: white; border-color: var(--accent); }
   .footer-btn:active { transform: scale(0.97); }
 
-  .modal-bg {
-    position: fixed; inset: 0; background: rgba(0,0,0,0.45);
-    display: none; align-items: flex-end; justify-content: center; z-index: 100;
-  }
+  .modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: none; align-items: flex-end; justify-content: center; z-index: 100; }
   .modal-bg.open { display: flex; }
-  .modal {
-    background: var(--card); width: 100%; max-width: 600px;
-    border-radius: 18px 18px 0 0;
-    padding: 20px 18px;
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
-  }
+  .modal { background: var(--card); width: 100%; max-width: 600px; border-radius: 18px 18px 0 0; padding: 20px 18px; padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px); }
   .modal h3 { margin: 0 0 12px; font-size: 17px; }
-  .modal-row {
-    padding: 14px 0; border-bottom: 1px solid var(--border);
-    display: flex; justify-content: space-between; align-items: center;
-    cursor: pointer; font-size: 15px;
-  }
+  .modal-row { padding: 14px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-size: 15px; }
   .modal-row:last-child { border-bottom: none; }
   .modal-row.danger { color: var(--danger); }
-  .modal-close {
-    margin-top: 12px; width: 100%; padding: 13px;
-    background: var(--card-2); border: none; border-radius: 12px;
-    font-size: 15px; font-weight: 600; color: var(--text); cursor: pointer;
-  }
+  .modal-close { margin-top: 12px; width: 100%; padding: 13px; background: var(--card-2); border: none; border-radius: 12px; font-size: 15px; font-weight: 600; color: var(--text); cursor: pointer; }
 
-  .toast {
-    position: fixed; top: 80px; left: 50%; transform: translateX(-50%);
-    background: rgba(0,0,0,0.85); color: white;
-    padding: 10px 18px; border-radius: 100px;
-    font-size: 14px; font-weight: 500;
-    opacity: 0; transition: opacity 0.3s;
-    pointer-events: none; z-index: 200;
-  }
+  .toast { position: fixed; top: 80px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.85); color: white; padding: 10px 18px; border-radius: 100px; font-size: 14px; font-weight: 500; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 200; }
   .toast.show { opacity: 1; }
 </style>
 </head>
@@ -381,7 +196,7 @@
   </div>
 
   <div class="search">
-    <input type="search" id="search" placeholder="Buscar tópico..." autocomplete="off" autocapitalize="none" />
+    <input type="search" id="search" placeholder="Buscar tópico ou página..." autocomplete="off" autocapitalize="none" />
   </div>
 
   <div class="quick-actions">
@@ -421,520 +236,532 @@ window.addEventListener("error", function(e) {
   if (b) { b.style.display = "block"; b.textContent = "Erro: " + (e.message || e); }
 });
 
-/* ESTRUTURA DO SUMÁRIO */
+/* ESTRUTURA: cada item = {t: texto, p: página inicial}; cada grupo tem page também */
 const SYLLABUS = [
   {
-    name: "Direito Administrativo", icon: "⚖️",
+    name: "Direito Administrativo", icon: "⚖️", page: 55,
     groups: [
-      { title: "1. Agentes Públicos", items: [
-        "1.1 Disposições Gerais", "1.2 Concurso Público",
-        "1.3 Regras Previdenciárias", "1.4 Regras Remuneratórias"
+      { title: "1. Agentes Públicos", page: 55, items: [
+        {t: "1.1 Disposições Gerais", p: 55},
+        {t: "1.2 Concurso Público", p: 57},
+        {t: "1.3 Regras Previdenciárias", p: 60},
+        {t: "1.4 Regras Remuneratórias", p: 62}
       ]},
-      { title: "2. Atos Administrativos", items: [
-        "2.1 Atributos/Elementos", "2.2 Controle",
-        "2.3 Espécies", "2.4 Prescrição/Decadência"
+      { title: "2. Atos Administrativos", page: 64, items: [
+        {t: "2.1 Atributos/Elementos", p: 64},
+        {t: "2.2 Controle", p: 65},
+        {t: "2.3 Espécies", p: 66},
+        {t: "2.4 Prescrição/Decadência", p: 66}
       ]},
-      { title: "3. Bens Públicos", items: ["3. Bens Públicos"] },
-      { title: "4. Controle da Administração Pública", items: [
-        "4.1 Lei Anticorrupção (Lei 12.846/13)",
-        "4.2 Lei de Acesso à Informação (Lei 12.527/11)",
-        "4.3 Lei de Improbidade (Lei 8.429/92)",
-        "4.4 Lei de Racionalização Administrativa (Lei 13.726/18)"
+      { title: "3. Bens Públicos", page: 67, items: [{t: "3. Bens Públicos", p: 67}] },
+      { title: "4. Controle da Administração Pública", page: 69, items: [
+        {t: "4.1 Lei Anticorrupção (Lei 12.846/13)", p: 69},
+        {t: "4.2 Lei de Acesso à Informação (Lei 12.527/11)", p: 70},
+        {t: "4.3 Lei de Improbidade (Lei 8.429/92)", p: 71},
+        {t: "4.4 Lei de Racionalização Administrativa (Lei 13.726/18)", p: 76}
       ]},
-      { title: "5. Entes da Administração", items: [
-        "5.1 Disposições Gerais",
-        "5.2 Agências, Autarquias e Fundações",
-        "5.3 Consórcios Públicos",
-        "5.4 Empresas Públicas e Sociedades de Economia Mista",
-        "5.5 Entes Paraestatais"
+      { title: "5. Entes da Administração", page: 76, items: [
+        {t: "5.1 Disposições Gerais", p: 76},
+        {t: "5.2 Agências, Autarquias e Fundações", p: 76},
+        {t: "5.3 Consórcios Públicos", p: 78},
+        {t: "5.4 Empresas Públicas e SEM", p: 78},
+        {t: "5.5 Entes Paraestatais", p: 79}
       ]},
-      { title: "6. Intervenção do Estado na Propriedade", items: [
-        "6.1 Desapropriação", "6.2 Outros Tipos de Intervenção"
+      { title: "6. Intervenção do Estado na Propriedade", page: 79, items: [
+        {t: "6.1 Desapropriação", p: 79},
+        {t: "6.2 Outros Tipos de Intervenção", p: 81}
       ]},
-      { title: "7. Licitações e Contratos", items: [
-        "7.1 Contratos",
-        "7.2.1 Licitações — Disposições Gerais",
-        "7.2.2 Licitações — Dispensa/Inexigibilidade",
-        "7.2.3 Licitações — Modalidades"
+      { title: "7. Licitações e Contratos", page: 83, items: [
+        {t: "7.1 Contratos", p: 83},
+        {t: "7.2.1 Licitações — Disposições Gerais", p: 84},
+        {t: "7.2.2 Licitações — Dispensa/Inexigibilidade", p: 84},
+        {t: "7.2.3 Licitações — Modalidades", p: 85}
       ]},
-      { title: "8. Processo Administrativo", items: [
-        "8.1 Processo Comum", "8.2 Processo Disciplinar"
+      { title: "8. Processo Administrativo", page: 85, items: [
+        {t: "8.1 Processo Comum", p: 85},
+        {t: "8.2 Processo Disciplinar", p: 87}
       ]},
-      { title: "9. Responsabilidade Civil do Estado", items: ["9. Responsabilidade Civil do Estado"] },
-      { title: "10. Serviços Públicos", items: [
-        "10.1 Disposições Gerais",
-        "10.2 Autorização, Concessão, Delegação e Permissão",
-        "10.3 Parcerias Público Privadas"
+      { title: "9. Responsabilidade Civil do Estado", page: 89, items: [{t: "9. Responsabilidade Civil do Estado", p: 89}] },
+      { title: "10. Serviços Públicos", page: 91, items: [
+        {t: "10.1 Disposições Gerais", p: 91},
+        {t: "10.2 Autorização, Concessão, Delegação e Permissão", p: 92},
+        {t: "10.3 Parcerias Público Privadas", p: 93}
       ]},
-      { title: "11. Teoria, Poderes e Princípios", items: [
-        "11.1 Teoria", "11.2 Poderes", "11.3 Princípios"
+      { title: "11. Teoria, Poderes e Princípios", page: 93, items: [
+        {t: "11.1 Teoria", p: 93},
+        {t: "11.2 Poderes", p: 94},
+        {t: "11.3 Princípios", p: 95}
       ]}
     ]
   },
   {
-    name: "Direito Civil", icon: "📜",
+    name: "Direito Civil", icon: "📜", page: 97,
     groups: [
-      { title: "1. Das Pessoas (arts. 1º a 78)", items: [
-        "1.1 Das Pessoas Naturais (arts. 1º a 39)",
-        "1.2 Das Pessoas Jurídicas (arts. 40 a 69)"
+      { title: "1. Das Pessoas (arts. 1º a 78)", page: 97, items: [
+        {t: "1.1 Das Pessoas Naturais (arts. 1º a 39)", p: 97},
+        {t: "1.2 Das Pessoas Jurídicas (arts. 40 a 69)", p: 101}
       ]},
-      { title: "2. Dos Bens (arts. 79 a 103)", items: ["2. Dos Bens (arts. 79 a 103)"] },
-      { title: "3. Dos Fatos Jurídicos (arts. 104 a 232)", items: [
-        "3.1.1 Negócio Jurídico — Disposições Gerais, Representação (arts. 104 a 120)",
-        "3.1.2 Da Condição, do Termo e do Encargo (arts. 121 a 137)",
-        "3.1.3 Dos Defeitos, Da Invalidade (arts. 138 a 184)",
-        "3.2 Atos Jurídicos Lícitos, Atos Ilícitos (arts. 185 a 188)",
-        "3.3 Da Prescrição e da Decadência (arts. 189 a 211)",
-        "3.4 Da Prova (arts. 212 a 232)"
+      { title: "2. Dos Bens (arts. 79 a 103)", page: 103, items: [{t: "2. Dos Bens (arts. 79 a 103)", p: 103}] },
+      { title: "3. Dos Fatos Jurídicos (arts. 104 a 232)", page: 104, items: [
+        {t: "3.1.1 Negócio Jurídico — Disposições Gerais, Representação (arts. 104 a 120)", p: 104},
+        {t: "3.1.2 Da Condição, do Termo e do Encargo (arts. 121 a 137)", p: 104},
+        {t: "3.1.3 Dos Defeitos, Da Invalidade (arts. 138 a 184)", p: 104},
+        {t: "3.2 Atos Jurídicos Lícitos, Atos Ilícitos (arts. 185 a 188)", p: 108},
+        {t: "3.3 Da Prescrição e da Decadência (arts. 189 a 211)", p: 108},
+        {t: "3.4 Da Prova (arts. 212 a 232)", p: 110}
       ]},
-      { title: "4. Do Direito das Obrigações (arts. 233 a 965)", items: [
-        "4.1 Das Modalidades (arts. 233 a 285)",
-        "4.2 Da Transmissão (arts. 286 a 303)",
-        "4.3 Do Adimplemento e Extinção (arts. 304 a 388)",
-        "4.4 Do Inadimplemento (arts. 389 a 420)",
-        "4.5 Dos Contratos em Geral (arts. 421 a 480)",
-        "4.6.1 Compra e Venda; Troca/Permuta; Contrato Estimatório (arts. 481 a 537)",
-        "4.6.2 Doação; Locação de Coisas; Empréstimo (arts. 538 a 592)",
-        "4.6.3 Mandato; Comissão; Agência e Distribuição (arts. 653 a 721)",
-        "4.6.4 Corretagem; Transporte; Seguro; Constituição de Renda (arts. 722 a 813)",
-        "4.6.5 Jogo e Aposta; Fiança; Transação; Compromisso; Adm. Garantias (arts. 814 a 853-A)",
-        "4.7 Da Responsabilidade Civil (arts. 927 a 954)"
+      { title: "4. Do Direito das Obrigações (arts. 233 a 965)", page: 110, items: [
+        {t: "4.1 Das Modalidades (arts. 233 a 285)", p: 110},
+        {t: "4.2 Da Transmissão (arts. 286 a 303)", p: 111},
+        {t: "4.3 Do Adimplemento e Extinção (arts. 304 a 388)", p: 112},
+        {t: "4.4 Do Inadimplemento (arts. 389 a 420)", p: 114},
+        {t: "4.5 Dos Contratos em Geral (arts. 421 a 480)", p: 115},
+        {t: "4.6.1 Compra e Venda; Troca/Permuta; Estimatório (arts. 481 a 537)", p: 120},
+        {t: "4.6.2 Doação; Locação de Coisas; Empréstimo (arts. 538 a 592)", p: 122},
+        {t: "4.6.3 Mandato; Comissão; Agência e Distribuição (arts. 653 a 721)", p: 125},
+        {t: "4.6.4 Corretagem; Transporte; Seguro; Renda (arts. 722 a 813)", p: 126},
+        {t: "4.6.5 Jogo e Aposta; Fiança; Transação; Compromisso (arts. 814 a 853-A)", p: 129},
+        {t: "4.7 Da Responsabilidade Civil (arts. 927 a 954)", p: 130}
       ]},
-      { title: "5. Do Direito das Coisas (arts. 1.196 a 1.510)", items: [
-        "5.1 Da Posse (arts. 1.196 a 1.224)",
-        "5.2.1 Da Propriedade em Geral (arts. 1.228 a 1.237)",
-        "5.2.2 Aquisição/Perda da Propriedade (arts. 1.238 a 1.276)",
-        "5.2.3 Direitos de Vizinhança (arts. 1.277 a 1.313)",
-        "5.2.4 Do Condomínio (arts. 1.314 a 1.358-U)",
-        "5.2.5 Propriedade Resolúvel/Fiduciária (arts. 1.359 a 1.368-B)",
-        "5.3 Da Superfície, Das Servidões (arts. 1.369 a 1.389)",
-        "5.4 Usufruto, Uso, Habitação (arts. 1.390 a 1.416)",
-        "5.6 Penhor, Hipoteca e Anticrese (arts. 1.419 a 1.510)",
-        "5.7 Da Laje (arts. 1.510-A a 1.510-E)"
+      { title: "5. Do Direito das Coisas (arts. 1.196 a 1.510)", page: 134, items: [
+        {t: "5.1 Da Posse (arts. 1.196 a 1.224)", p: 134},
+        {t: "5.2.1 Da Propriedade em Geral (arts. 1.228 a 1.237)", p: 135},
+        {t: "5.2.2 Aquisição/Perda da Propriedade (arts. 1.238 a 1.276)", p: 135},
+        {t: "5.2.3 Direitos de Vizinhança (arts. 1.277 a 1.313)", p: 138},
+        {t: "5.2.4 Do Condomínio (arts. 1.314 a 1.358-U)", p: 138},
+        {t: "5.2.5 Propriedade Resolúvel/Fiduciária (arts. 1.359 a 1.368-B)", p: 140},
+        {t: "5.3 Da Superfície, Das Servidões (arts. 1.369 a 1.389)", p: 141},
+        {t: "5.4 Usufruto, Uso, Habitação (arts. 1.390 a 1.416)", p: 141},
+        {t: "5.6 Penhor, Hipoteca e Anticrese (arts. 1.419 a 1.510)", p: 143},
+        {t: "5.7 Da Laje (arts. 1.510-A a 1.510-E)", p: 145}
       ]},
-      { title: "6. Do Direito de Família (arts. 1.511 a 1783)", items: [
-        "6.1.1 Do Casamento (arts. 1.511 a 1.590)",
-        "6.1.2 Relações de Parentesco (arts. 1.591 a 1.638)",
-        "6.2.1 Regime de Bens (arts. 1.639 a 1.688)",
-        "6.2.2 Usufruto e Administração dos Bens de Filhos Menores (arts. 1.689 a 1.693)",
-        "6.2.3 Dos Alimentos (arts. 1.694 a 1.710)",
-        "6.3 Da União Estável (arts. 1.723 a 1.727)",
-        "6.4 Tutela, Curatela, Tomada de Decisão Apoiada (arts. 1.728 a 1.783)"
+      { title: "6. Do Direito de Família (arts. 1.511 a 1783)", page: 145, items: [
+        {t: "6.1.1 Do Casamento (arts. 1.511 a 1.590)", p: 145},
+        {t: "6.1.2 Relações de Parentesco (arts. 1.591 a 1.638)", p: 148},
+        {t: "6.2.1 Regime de Bens (arts. 1.639 a 1.688)", p: 149},
+        {t: "6.2.2 Usufruto e Adm. de Bens de Filhos Menores (arts. 1.689 a 1.693)", p: 153},
+        {t: "6.2.3 Dos Alimentos (arts. 1.694 a 1.710)", p: 154},
+        {t: "6.3 Da União Estável (arts. 1.723 a 1.727)", p: 155},
+        {t: "6.4 Tutela, Curatela, Tomada de Decisão Apoiada (arts. 1.728 a 1.783)", p: 156}
       ]},
-      { title: "7. Do Direito das Sucessões (arts. 1.784 a 2.027)", items: [
-        "7.1 Da Sucessão em Geral (arts. 1.784 a 1.828)",
-        "7.2 Da Sucessão Legítima (arts. 1.829 a 1.856)",
-        "7.3 Da Sucessão Testamentária (arts. 1.857 a 1.990)",
-        "7.4 Do Inventário e da Partilha (arts. 1.991 a 2.027)"
+      { title: "7. Do Direito das Sucessões (arts. 1.784 a 2.027)", page: 156, items: [
+        {t: "7.1 Da Sucessão em Geral (arts. 1.784 a 1.828)", p: 156},
+        {t: "7.2 Da Sucessão Legítima (arts. 1.829 a 1.856)", p: 159},
+        {t: "7.3 Da Sucessão Testamentária (arts. 1.857 a 1.990)", p: 161},
+        {t: "7.4 Do Inventário e da Partilha (arts. 1.991 a 2.027)", p: 166}
       ]},
-      { title: "8. Disposições Finais e Transitórias", items: ["8. Disposições Finais e Transitórias (arts. 2.028 a 2.046)"] },
-      { title: "9. Leis Especiais", items: [
-        "9.1 Código de Defesa do Consumidor (Lei 8.078/90)",
-        "9.2 Estatuto da Criança e do Adolescente (Lei 8.069/90)",
-        "9.3 Estatuto da Pessoa com Deficiência (Lei 13.146/15)",
-        "9.4 Estatuto da Pessoa Idosa (Lei 10.741/03)",
-        "9.5 Lei de Direitos Autorais (Lei 9.610/98)",
-        "9.6 LINDB (DL 4.657/42)",
-        "9.7 Lei de Investigação de Paternidade (Lei 8.560/92)",
-        "9.8 Lei de Locações Urbanas (Lei 8.245/91)",
-        "9.9 Lei de Migração (Lei 13.445/17)",
-        "9.10 Lei de Transplantes (Lei 9.434/97)",
-        "9.11 Lei do Bem de Família (Lei 8.009/90)",
-        "9.12 LGPD (Lei 13.709/17)"
+      { title: "8. Disposições Finais e Transitórias", page: 167, items: [{t: "8. Disposições Finais e Transitórias (arts. 2.028 a 2.046)", p: 167}] },
+      { title: "9. Leis Especiais", page: 168, items: [
+        {t: "9.1 CDC (Lei 8.078/90)", p: 168},
+        {t: "9.2 ECA (Lei 8.069/90)", p: 172},
+        {t: "9.3 Pessoa com Deficiência (Lei 13.146/15)", p: 174},
+        {t: "9.4 Pessoa Idosa (Lei 10.741/03)", p: 176},
+        {t: "9.5 Direitos Autorais (Lei 9.610/98)", p: 177},
+        {t: "9.6 LINDB (DL 4.657/42)", p: 179},
+        {t: "9.7 Investigação de Paternidade (Lei 8.560/92)", p: 181},
+        {t: "9.8 Locações Urbanas (Lei 8.245/91)", p: 181},
+        {t: "9.9 Migração (Lei 13.445/17)", p: 184},
+        {t: "9.10 Transplantes (Lei 9.434/97)", p: 185},
+        {t: "9.11 Bem de Família (Lei 8.009/90)", p: 186},
+        {t: "9.12 LGPD (Lei 13.709/17)", p: 189}
       ]}
     ]
   },
   {
-    name: "Direito Constitucional", icon: "🏛️",
+    name: "Direito Constitucional", icon: "🏛️", page: 193,
     groups: [
-      { title: "1. Dos Princípios Fundamentais (arts. 1º a 4º)", items: ["1. Dos Princípios Fundamentais (arts. 1º a 4º)"] },
-      { title: "2. Dos Direitos e Garantias Fundamentais", items: [
-        "2.1 Direitos e Deveres Individuais e Coletivos (art. 5º)",
-        "2.2 Direitos Sociais (arts. 6º a 11)",
-        "2.3 Da Nacionalidade (arts. 12 e 13)",
-        "2.4 Direitos/Partidos Políticos (arts. 14 a 17)"
+      { title: "1. Dos Princípios Fundamentais (arts. 1º a 4º)", page: 193, items: [{t: "1. Dos Princípios Fundamentais (arts. 1º a 4º)", p: 193}] },
+      { title: "2. Dos Direitos e Garantias Fundamentais", page: 194, items: [
+        {t: "2.1 Direitos e Deveres Individuais e Coletivos (art. 5º)", p: 194},
+        {t: "2.2 Direitos Sociais (arts. 6º a 11)", p: 197},
+        {t: "2.3 Da Nacionalidade (arts. 12 e 13)", p: 198},
+        {t: "2.4 Direitos/Partidos Políticos (arts. 14 a 17)", p: 199}
       ]},
-      { title: "3. Da Organização do Estado", items: [
-        "3.1 Da União (arts. 20 a 24)",
-        "3.2 Dos Estados Federados (arts. 25 a 28)",
-        "3.3 Dos Municípios (arts. 29 a 31)",
-        "3.4 Da Intervenção (arts. 34 a 36)"
+      { title: "3. Da Organização do Estado", page: 200, items: [
+        {t: "3.1 Da União (arts. 20 a 24)", p: 200},
+        {t: "3.2 Dos Estados Federados (arts. 25 a 28)", p: 202},
+        {t: "3.3 Dos Municípios (arts. 29 a 31)", p: 204},
+        {t: "3.4 Da Intervenção (arts. 34 a 36)", p: 205}
       ]},
-      { title: "4. Da Organização dos Poderes", items: [
-        "4.1.1 Do Congresso Nacional (arts. 44 a 58)",
-        "4.1.2 Do Processo Legislativo (arts. 59 a 69)",
-        "4.1.3 Fiscalização Contábil, Financeira e Orçamentária (arts. 70 a 75)",
-        "4.2 Do Poder Executivo (arts. 76 a 91)",
-        "4.3.1 Poder Judiciário — Disposições Gerais (arts. 92 a 100)",
-        "4.3.2 Do Supremo Tribunal Federal (arts. 101 a 103-A)",
-        "4.3.3 Do Conselho Nacional de Justiça (art. 103-B)",
-        "4.3.4 Demais Tribunais e Juízes (arts. 105 a 126)",
-        "4.4 Funções Essenciais à Justiça (arts. 127 a 135)"
+      { title: "4. Da Organização dos Poderes", page: 206, items: [
+        {t: "4.1.1 Do Congresso Nacional (arts. 44 a 58)", p: 206},
+        {t: "4.1.2 Do Processo Legislativo (arts. 59 a 69)", p: 208},
+        {t: "4.1.3 Fiscalização Contábil, Financeira e Orçamentária (arts. 70 a 75)", p: 211},
+        {t: "4.2 Do Poder Executivo (arts. 76 a 91)", p: 214},
+        {t: "4.3.1 Poder Judiciário — Disposições Gerais (arts. 92 a 100)", p: 215},
+        {t: "4.3.2 Do Supremo Tribunal Federal (arts. 101 a 103-A)", p: 216},
+        {t: "4.3.3 Do Conselho Nacional de Justiça (art. 103-B)", p: 217},
+        {t: "4.3.4 Demais Tribunais e Juízes (arts. 105 a 126)", p: 218},
+        {t: "4.4 Funções Essenciais à Justiça (arts. 127 a 135)", p: 218}
       ]},
-      { title: "5. Da Defesa do Estado e das Instituições Democráticas", items: [
-        "5.1 Estado de Defesa e Estado de Sítio (arts. 136 a 141)"
+      { title: "5. Da Defesa do Estado e Instituições Democráticas", page: 221, items: [
+        {t: "5.1 Estado de Defesa e Estado de Sítio (arts. 136 a 141)", p: 221}
       ]},
-      { title: "6. Da Ordem Econômica e Financeira", items: [
-        "6.1 Princípios Gerais da Atividade Econômica (arts. 170 a 181)",
-        "6.2 Política Urbana, Política Agrícola, Reforma Agrária (arts. 182 a 191)"
+      { title: "6. Da Ordem Econômica e Financeira", page: 221, items: [
+        {t: "6.1 Princípios Gerais da Atividade Econômica (arts. 170 a 181)", p: 221},
+        {t: "6.2 Política Urbana, Política Agrícola, Reforma Agrária (arts. 182 a 191)", p: 222}
       ]},
-      { title: "7. Da Ordem Social", items: [
-        "7.1 Da Seguridade Social (arts. 194 a 204)",
-        "7.2 Educação, Cultura e Desporto (arts. 205 a 217)",
-        "7.3 Ciência, Tecnologia e Inovação (arts. 218 a 219)",
-        "7.4 Da Comunicação Social (arts. 220 a 224)",
-        "7.5 Do Meio Ambiente (art. 225)",
-        "7.6 Família, Criança, Adolescente, Jovem e Idoso (arts. 226 a 230)",
-        "7.7 Dos Índios (arts. 231 a 232)"
+      { title: "7. Da Ordem Social", page: 223, items: [
+        {t: "7.1 Da Seguridade Social (arts. 194 a 204)", p: 223},
+        {t: "7.2 Educação, Cultura e Desporto (arts. 205 a 217)", p: 225},
+        {t: "7.3 Ciência, Tecnologia e Inovação (arts. 218 a 219)", p: 227},
+        {t: "7.4 Da Comunicação Social (arts. 220 a 224)", p: 227},
+        {t: "7.5 Do Meio Ambiente (art. 225)", p: 227},
+        {t: "7.6 Família, Criança, Adolescente, Jovem e Idoso (arts. 226 a 230)", p: 230},
+        {t: "7.7 Dos Índios (arts. 231 a 232)", p: 230}
       ]},
-      { title: "8. Disposições Constitucionais Gerais; ADCT", items: ["8. Disposições Constitucionais Gerais; ADCT (arts. 233 a 250)"] },
-      { title: "9. Ações Constitucionais", items: [
-        "9.1 Ação Civil Pública", "9.2 Ação Popular",
-        "9.3 Habeas Corpus", "9.4 Habeas Data",
-        "9.5 Mandado de Injunção", "9.6 Mandado de Segurança"
+      { title: "8. Disposições Constitucionais Gerais; ADCT", page: 231, items: [{t: "8. Disposições Constitucionais Gerais; ADCT (arts. 233 a 250)", p: 231}] },
+      { title: "9. Ações Constitucionais", page: 232, items: [
+        {t: "9.1 Ação Civil Pública", p: 232},
+        {t: "9.2 Ação Popular", p: 233},
+        {t: "9.3 Habeas Corpus", p: 234},
+        {t: "9.4 Habeas Data", p: 235},
+        {t: "9.5 Mandado de Injunção", p: 235},
+        {t: "9.6 Mandado de Segurança", p: 236}
       ]},
-      { title: "10. Controle de Constitucionalidade", items: [
-        "10.1 Controle Concentrado", "10.2 Controle Difuso",
-        "10.3 Súmula Vinculante"
+      { title: "10. Controle de Constitucionalidade", page: 239, items: [
+        {t: "10.1 Controle Concentrado", p: 239},
+        {t: "10.2 Controle Difuso", p: 244},
+        {t: "10.3 Súmula Vinculante", p: 245}
       ]},
-      { title: "11. Teoria", items: [
-        "11.1 Classificação/Conceito de Constituições/Normas",
-        "11.2 Evolução/História Constitucional",
-        "11.3 Hermenêutica Constitucional",
-        "11.4 Poder Constituinte"
+      { title: "11. Teoria", page: 245, items: [
+        {t: "11.1 Classificação/Conceito de Constituições/Normas", p: 245},
+        {t: "11.2 Evolução/História Constitucional", p: 247},
+        {t: "11.3 Hermenêutica Constitucional", p: 247},
+        {t: "11.4 Poder Constituinte", p: 248}
       ]}
     ]
   },
   {
-    name: "Direito Empresarial", icon: "🏢",
+    name: "Direito Empresarial", icon: "🏢", page: 251,
     groups: [
-      { title: "1. Do Empresário (arts. 966 a 980)", items: ["1. Do Empresário (arts. 966 a 980)"] },
-      { title: "2. Da Sociedade (arts. 981 a 1.141)", items: [
-        "2.1 Disposições Gerais (arts. 981 a 985)",
-        "2.2 Sociedade não Personificada (arts. 986 a 996)",
-        "2.3.1 Simples, Nome Coletivo, Comandita Simples (arts. 997 a 1.051)",
-        "2.3.2 Limitada, Anônima, Comandita por Ações (arts. 1.052 a 1.092)",
-        "2.3.3 Cooperativa, Coligada, Dependente de Autorização",
-        "2.3.4 Liquidação, Transformação, Incorporação, Fusão e Cisão (arts. 1.102 a 1.122)"
+      { title: "1. Do Empresário (arts. 966 a 980)", page: 251, items: [{t: "1. Do Empresário (arts. 966 a 980)", p: 251}] },
+      { title: "2. Da Sociedade (arts. 981 a 1.141)", page: 253, items: [
+        {t: "2.1 Disposições Gerais (arts. 981 a 985)", p: 253},
+        {t: "2.2 Sociedade não Personificada (arts. 986 a 996)", p: 254},
+        {t: "2.3.1 Simples, Nome Coletivo, Comandita Simples (arts. 997 a 1.051)", p: 255},
+        {t: "2.3.2 Limitada, Anônima, Comandita por Ações (arts. 1.052 a 1.092)", p: 257},
+        {t: "2.3.3 Cooperativa, Coligada, Dependente de Autorização", p: 260},
+        {t: "2.3.4 Liquidação, Transformação, Incorporação, Fusão e Cisão (arts. 1.102 a 1.122)", p: 260}
       ]},
-      { title: "3. Do Estabelecimento (arts. 1.142 a 1.149)", items: ["3. Do Estabelecimento (arts. 1.142 a 1.149)"] },
-      { title: "4. Dos Institutos Complementares (arts. 1.150 a 1.195)", items: ["4. Dos Institutos Complementares (arts. 1.150 a 1.195)"] },
-      { title: "5. Contratos Mercantis/Bancários", items: ["5. Contratos Mercantis/Bancários"] },
-      { title: "6. Lei de Recuperação e Falência (Lei 11.101/05)", items: [
-        "6.1 Falência",
-        "6.2 Recuperação Judicial/Extrajudicial"
+      { title: "3. Do Estabelecimento (arts. 1.142 a 1.149)", page: 260, items: [{t: "3. Do Estabelecimento (arts. 1.142 a 1.149)", p: 260}] },
+      { title: "4. Dos Institutos Complementares (arts. 1.150 a 1.195)", page: 262, items: [{t: "4. Dos Institutos Complementares (arts. 1.150 a 1.195)", p: 262}] },
+      { title: "5. Contratos Mercantis/Bancários", page: 264, items: [{t: "5. Contratos Mercantis/Bancários", p: 264}] },
+      { title: "6. Lei de Recuperação e Falência (Lei 11.101/05)", page: 268, items: [
+        {t: "6.1 Falência", p: 268},
+        {t: "6.2 Recuperação Judicial/Extrajudicial", p: 272}
       ]},
-      { title: "7. Leis Especiais", items: [
-        "7.1 Estatuto da Microempresa e da EPP (LC 123/06)",
-        "7.2 Lei das Sociedades Anônimas (Lei 6.404/76)",
-        "7.3 Lei de Liberdade Econômica (Lei 13.874/19)",
-        "7.4 Lei de Propriedade Industrial (Lei 9.279/96)",
-        "7.5 Sistema de Franquia Empresarial (Lei 13.966/19)"
+      { title: "7. Leis Especiais", page: 277, items: [
+        {t: "7.1 Microempresa e EPP (LC 123/06)", p: 277},
+        {t: "7.2 Sociedades Anônimas (Lei 6.404/76)", p: 279},
+        {t: "7.3 Liberdade Econômica (Lei 13.874/19)", p: 280},
+        {t: "7.4 Propriedade Industrial (Lei 9.279/96)", p: 281},
+        {t: "7.5 Franquia Empresarial (Lei 13.966/19)", p: 284}
       ]},
-      { title: "8. Títulos de Crédito", items: [
-        "8.1 Código Civil (arts. 887 a 926)",
-        "8.2.1 Lei da Cédula de Produto Rural (Lei 8.929/94)",
-        "8.2.2 Lei das Duplicatas (Lei 5.474/68)",
-        "8.2.3 Títulos de Crédito Industrial (DL 413/69)",
-        "8.2.4 Títulos de Crédito Rural (DL 167/67)",
-        "8.2.5 Leis Esparsas"
+      { title: "8. Títulos de Crédito", page: 285, items: [
+        {t: "8.1 Código Civil (arts. 887 a 926)", p: 285},
+        {t: "8.2.1 Cédula de Produto Rural (Lei 8.929/94)", p: 287},
+        {t: "8.2.2 Duplicatas (Lei 5.474/68)", p: 288},
+        {t: "8.2.3 Crédito Industrial (DL 413/69)", p: 288},
+        {t: "8.2.4 Crédito Rural (DL 167/67)", p: 289},
+        {t: "8.2.5 Leis Esparsas", p: 290}
       ]},
-      { title: "9. Teoria e Princípios", items: ["9. Teoria e Princípios"] }
+      { title: "9. Teoria e Princípios", page: 294, items: [{t: "9. Teoria e Princípios", p: 294}] }
     ]
   },
   {
-    name: "Direito Notarial e Registral", icon: "📋",
+    name: "Direito Notarial e Registral", icon: "📋", page: 297,
     groups: [
-      { title: "1. Código Nacional de Normas (Prov. CNJ 149/2023)", items: [
-        "1.1.1 Das Atribuições (arts. 1º a 57)",
-        "1.1.2 Organização na Prestação dos Serviços (arts. 58 a 64-I)",
-        "1.1.3 Dos Interinos e dos Prepostos (arts. 65 a 71-T)",
-        "1.1.4 Do Delegatário (art. 72)",
-        "1.1.5 Da Proteção de Dados Pessoais (arts. 79 a 135)",
-        "1.2 Da Interação Interinstitucional (arts. 136 a 184-A)",
-        "1.3 Do Acervo das Serventias (arts. 185 a 205-Q)",
-        "1.4 Da Organização Digital dos Serviços (arts. 206 a 343-J)",
-        "1.5 Dos Emolumentos nos Serviços Notariais e Registrais (arts. 344 a 353)",
-        "1.6 Do Tabelionato de Protesto (arts. 354 a 396)",
-        "1.7 Do RTD e do Registro Civil de Pessoas Jurídicas (arts. 397 a 397-AM)",
-        "1.8 Do Registro de Imóveis (arts. 398 a 440-BG)",
-        "1.9 Do Tabelionato de Notas (arts. 441 a 444-G)",
-        "1.10.1 Unidades Interligadas nos Estabelecimentos de Saúde (arts. 445 a 460)",
-        "1.10.2 Situações Jurídico-Transnacionais (arts. 462 a 467)",
-        "1.10.3 Dos Modelos de Atos (arts. 472 a 479)",
-        "1.10.4 Do Registro de Natimorto (arts. 479-A e 479-B)",
-        "1.10.5 Do Registro Tardio (arts. 480 a 495)",
-        "1.10.6 Do Reconhecimento de Paternidade (arts. 496 a 504)",
-        "1.10.7 Da Parentalidade Socioafetiva (arts. 505 a 511)",
-        "1.10.8 Da Adoção Unilateral (art. 511-A)",
-        "1.10.9 Da Reprodução Assistida (arts. 512 a 515)",
-        "1.10.10 Alteração Extrajudicial do Nome (arts. 515-A a 515-V)",
-        "1.10.11 Dados Relativos à Pessoa Transgênero (arts. 516 a 523)",
-        "1.10.12 Ações Informativas p/ Preparação do Casamento (arts. 531 a 536)",
-        "1.10.13 Da União Estável (arts. 537 a 553)",
-        "1.10.14 Casamento entre Pessoas do Mesmo Sexo (art. 554)"
+      { title: "1. Código Nacional de Normas (Prov. CNJ 149/2023)", page: 297, items: [
+        {t: "1.1.1 Das Atribuições (arts. 1º a 57)", p: 297},
+        {t: "1.1.2 Organização (arts. 58 a 64-I)", p: 300},
+        {t: "1.1.3 Interinos e Prepostos (arts. 65 a 71-T)", p: 300},
+        {t: "1.1.4 Delegatário (art. 72)", p: 301},
+        {t: "1.1.5 Proteção de Dados Pessoais (arts. 79 a 135)", p: 301},
+        {t: "1.2 Interação Interinstitucional (arts. 136 a 184-A)", p: 303},
+        {t: "1.3 Acervo das Serventias (arts. 185 a 205-Q)", p: 304},
+        {t: "1.4 Organização Digital (arts. 206 a 343-J)", p: 305},
+        {t: "1.5 Emolumentos (arts. 344 a 353)", p: 310},
+        {t: "1.6 Tabelionato de Protesto (arts. 354 a 396)", p: 310},
+        {t: "1.7 RTD e RCPJ (arts. 397 a 397-AM)", p: 311},
+        {t: "1.8 Registro de Imóveis (arts. 398 a 440-BG)", p: 311},
+        {t: "1.9 Tabelionato de Notas (arts. 441 a 444-G)", p: 313},
+        {t: "1.10.1 Unidades Interligadas em Saúde (arts. 445 a 460)", p: 313},
+        {t: "1.10.2 Situações Jurídico-Transnacionais (arts. 462 a 467)", p: 313},
+        {t: "1.10.3 Modelos de Atos (arts. 472 a 479)", p: 313},
+        {t: "1.10.4 Registro de Natimorto (arts. 479-A e 479-B)", p: 314},
+        {t: "1.10.5 Registro Tardio (arts. 480 a 495)", p: 314},
+        {t: "1.10.6 Reconhecimento de Paternidade (arts. 496 a 504)", p: 314},
+        {t: "1.10.7 Parentalidade Socioafetiva (arts. 505 a 511)", p: 315},
+        {t: "1.10.8 Adoção Unilateral (art. 511-A)", p: 315},
+        {t: "1.10.9 Reprodução Assistida (arts. 512 a 515)", p: 316},
+        {t: "1.10.10 Alteração Extrajudicial do Nome (arts. 515-A a 515-V)", p: 317},
+        {t: "1.10.11 Pessoa Transgênero (arts. 516 a 523)", p: 317},
+        {t: "1.10.12 Ações Informativas Casamento (arts. 531 a 536)", p: 317},
+        {t: "1.10.13 União Estável (arts. 537 a 553)", p: 318},
+        {t: "1.10.14 Casamento entre Pessoas do Mesmo Sexo (art. 554)", p: 318}
       ]},
-      { title: "2. Lei do Protesto (Lei 9.492/97)", items: [
-        "2.1 Da Competência e das Atribuições (arts. 1º a 3º)",
-        "2.2 Da Ordem dos Serviços (arts. 4º a 6º)",
-        "2.3 Da Distribuição (arts. 7º a 8º)",
-        "2.4 Da Apresentação e Protocolização (arts. 9º a 11-A)",
-        "2.5 Do Prazo (arts. 12 a 13)",
-        "2.6 Da Intimação (arts. 14 a 15)",
-        "2.7 Desistência e Sustação do Protesto (arts. 16 a 18)",
-        "2.8 Do Pagamento (art. 19)",
-        "2.9 Do Registro do Protesto (arts. 20 a 24)",
-        "2.10 Averbações e Cancelamento (arts. 25 a 26)",
-        "2.11 Certidões e Informações do Protesto (arts. 27 a 31)",
-        "2.12 Livros e Arquivos (arts. 32 a 36)",
-        "2.13 Disposições Finais (arts. 38 a 43)",
-        "2.14 Temas Esparsos"
+      { title: "2. Lei do Protesto (Lei 9.492/97)", page: 318, items: [
+        {t: "2.1 Competência e Atribuições (arts. 1º a 3º)", p: 318},
+        {t: "2.2 Ordem dos Serviços (arts. 4º a 6º)", p: 320},
+        {t: "2.3 Distribuição (arts. 7º a 8º)", p: 320},
+        {t: "2.4 Apresentação e Protocolização (arts. 9º a 11-A)", p: 321},
+        {t: "2.5 Prazo (arts. 12 a 13)", p: 323},
+        {t: "2.6 Intimação (arts. 14 a 15)", p: 324},
+        {t: "2.7 Desistência e Sustação (arts. 16 a 18)", p: 326},
+        {t: "2.8 Pagamento (art. 19)", p: 327},
+        {t: "2.9 Registro do Protesto (arts. 20 a 24)", p: 328},
+        {t: "2.10 Averbações e Cancelamento (arts. 25 a 26)", p: 329},
+        {t: "2.11 Certidões e Informações (arts. 27 a 31)", p: 330},
+        {t: "2.12 Livros e Arquivos (arts. 32 a 36)", p: 332},
+        {t: "2.13 Disposições Finais (arts. 38 a 43)", p: 332},
+        {t: "2.14 Temas Esparsos", p: 332}
       ]},
-      { title: "3. Lei dos Cartórios (Lei 8.935/94)", items: [
-        "3.1.1 Natureza e Fins (arts. 1º a 4º)",
-        "3.1.2 Dos Notários e Registradores (arts. 5º a 13)",
-        "3.2.1 Ingresso na Atividade Notarial e de Registro (arts. 14 a 19)",
-        "3.2.2 Dos Prepostos (arts. 20 e 21)",
-        "3.2.3 Responsabilidade Civil e Criminal (arts. 22 a 24)",
-        "3.2.4 Incompatibilidades e Impedimentos (arts. 25 a 27)",
-        "3.2.5 Direitos e Deveres (arts. 28 a 30)",
-        "3.2.6 Infrações Disciplinares e Penalidades (arts. 31 a 36)",
-        "3.2.7 Fiscalização pelo Poder Judiciário (arts. 37 e 38)",
-        "3.2.8 Da Extinção da Delegação (art. 39)",
-        "3.3 Disposições Gerais/Transitórias (arts. 41 a 55)"
+      { title: "3. Lei dos Cartórios (Lei 8.935/94)", page: 333, items: [
+        {t: "3.1.1 Natureza e Fins (arts. 1º a 4º)", p: 333},
+        {t: "3.1.2 Notários e Registradores (arts. 5º a 13)", p: 335},
+        {t: "3.2.1 Ingresso (arts. 14 a 19)", p: 339},
+        {t: "3.2.2 Prepostos (arts. 20 e 21)", p: 340},
+        {t: "3.2.3 Responsabilidade Civil e Criminal (arts. 22 a 24)", p: 341},
+        {t: "3.2.4 Incompatibilidades e Impedimentos (arts. 25 a 27)", p: 346},
+        {t: "3.2.5 Direitos e Deveres (arts. 28 a 30)", p: 347},
+        {t: "3.2.6 Infrações Disciplinares e Penalidades (arts. 31 a 36)", p: 349},
+        {t: "3.2.7 Fiscalização pelo Poder Judiciário (arts. 37 e 38)", p: 351},
+        {t: "3.2.8 Extinção da Delegação (art. 39)", p: 352},
+        {t: "3.3 Disposições Gerais/Transitórias (arts. 41 a 55)", p: 352}
       ]},
-      { title: "4. Lei dos Registros Públicos (Lei 6.015/73)", items: [
-        "4.1.1 Disposições Gerais — Das Atribuições (arts. 1º e 2º)",
-        "4.1.2 Da Ordem do Serviço (arts. 8º a 15)",
-        "4.1.3 Da Publicidade (arts. 16 a 21)",
-        "4.1.4 Da Conservação (arts. 22 a 27)",
-        "4.2.1 RCPN — Disposições Gerais (arts. 29 a 32)",
-        "4.2.2 Da Escrituração e Ordem de Serviço (arts. 33 a 45)",
-        "4.2.3 Das Penalidades (arts. 46 a 49)",
-        "4.2.4 Do Nascimento (arts. 50 a 66)",
-        "4.2.5 Habilitação p/ Casamento (arts. 67 a 69)",
-        "4.2.6 Do Casamento (arts. 70 e 70-A)",
-        "4.2.7 Registro do Casamento Religioso (arts. 71 a 75)",
-        "4.2.8 Casamento em Iminente Risco de Vida (art. 76)",
-        "4.2.9 Do Óbito (arts. 77 a 88)",
-        "4.2.10 Emancipação, Interdição e Ausência (arts. 89 a 94-A)",
-        "4.2.11 Da Legitimação Adotiva (arts. 95 a 96)",
-        "4.2.12 Da Averbação (arts. 97 a 105)",
-        "4.2.13 Das Anotações (arts. 106 a 108)",
-        "4.2.14 Retificações, Restaurações e Suprimentos (arts. 109 a 113)",
-        "4.3.1 RCPJ — Escrituração, Pessoa Jurídica (arts. 114 a 121)",
-        "4.3.2 Registro de Jornais, Oficinas Impressoras (arts. 122 a 126)",
-        "4.4.1 RTD — Das Atribuições (arts. 127 a 131)",
-        "4.4.2 Da Escrituração (arts. 132 a 141)",
-        "4.4.3 Da Ordem do Serviço (arts. 146 a 163)",
-        "4.5.1 RI — Das Atribuições (arts. 167 a 171)",
-        "4.5.2 Da Escrituração (arts. 172 a 181)",
-        "4.5.3 Do Processo do Registro (arts. 182 a 216-B)",
-        "4.5.4 Das Pessoas (arts. 217 a 220)",
-        "4.5.5 Dos Títulos (arts. 221 a 226)",
-        "4.5.6 Da Matrícula (arts. 227 a 235)",
-        "4.5.7 Do Registro (arts. 236 a 245)",
-        "4.5.8 Averbação e Cancelamento (arts. 246 a 259)",
-        "4.5.9 Remição do Imóvel Hipotecado (arts. 266 a 276)",
-        "4.5.10 Do Registro Torrens (arts. 277 a 288)",
-        "4.6 Disposições Finais e Transitórias (arts. 289 a 299)"
+      { title: "4. Lei dos Registros Públicos (Lei 6.015/73)", page: 353, items: [
+        {t: "4.1.1 Disposições Gerais — Atribuições (arts. 1º e 2º)", p: 354},
+        {t: "4.1.2 Ordem do Serviço (arts. 8º a 15)", p: 354},
+        {t: "4.1.3 Publicidade (arts. 16 a 21)", p: 355},
+        {t: "4.1.4 Conservação (arts. 22 a 27)", p: 356},
+        {t: "4.2.1 RCPN — Disposições Gerais (arts. 29 a 32)", p: 358},
+        {t: "4.2.2 Escrituração e Ordem de Serviço (arts. 33 a 45)", p: 360},
+        {t: "4.2.3 Penalidades (arts. 46 a 49)", p: 361},
+        {t: "4.2.4 Nascimento (arts. 50 a 66)", p: 361},
+        {t: "4.2.5 Habilitação p/ Casamento (arts. 67 a 69)", p: 368},
+        {t: "4.2.6 Casamento (arts. 70 e 70-A)", p: 370},
+        {t: "4.2.7 Casamento Religioso p/ Efeitos Civis (arts. 71 a 75)", p: 372},
+        {t: "4.2.8 Casamento Iminente Risco de Vida (art. 76)", p: 372},
+        {t: "4.2.9 Óbito (arts. 77 a 88)", p: 373},
+        {t: "4.2.10 Emancipação, Interdição e Ausência (arts. 89 a 94-A)", p: 374},
+        {t: "4.2.11 Legitimação Adotiva (arts. 95 a 96)", p: 375},
+        {t: "4.2.12 Averbação (arts. 97 a 105)", p: 376},
+        {t: "4.2.13 Anotações (arts. 106 a 108)", p: 376},
+        {t: "4.2.14 Retificações, Restaurações e Suprimentos (arts. 109 a 113)", p: 376},
+        {t: "4.3.1 RCPJ — Escrituração, Pessoa Jurídica (arts. 114 a 121)", p: 377},
+        {t: "4.3.2 Registro de Jornais, Oficinas Impressoras (arts. 122 a 126)", p: 380},
+        {t: "4.4.1 RTD — Atribuições (arts. 127 a 131)", p: 381},
+        {t: "4.4.2 Escrituração (arts. 132 a 141)", p: 384},
+        {t: "4.4.3 Ordem do Serviço (arts. 146 a 163)", p: 386},
+        {t: "4.5.1 RI — Atribuições (arts. 167 a 171)", p: 386},
+        {t: "4.5.2 Escrituração (arts. 172 a 181)", p: 388},
+        {t: "4.5.3 Processo do Registro (arts. 182 a 216-B)", p: 390},
+        {t: "4.5.4 Pessoas (arts. 217 a 220)", p: 397},
+        {t: "4.5.5 Títulos (arts. 221 a 226)", p: 397},
+        {t: "4.5.6 Matrícula (arts. 227 a 235)", p: 398},
+        {t: "4.5.7 Registro (arts. 236 a 245)", p: 398},
+        {t: "4.5.8 Averbação e Cancelamento (arts. 246 a 259)", p: 400},
+        {t: "4.5.9 Remição do Imóvel Hipotecado (arts. 266 a 276)", p: 402},
+        {t: "4.5.10 Registro Torrens (arts. 277 a 288)", p: 402},
+        {t: "4.6 Disposições Finais e Transitórias (arts. 289 a 299)", p: 403}
       ]},
-      { title: "5. Provimentos do CNJ", items: [
-        "5.1 Provimento 16/2012",
-        "5.2 Provimento 50/2015",
-        "5.3 Provimento 56/2016",
-        "5.4 Provimento 63/2017",
-        "5.5 Provimento 65/2017",
-        "5.6 Provimento 73/2018",
-        "5.7 Provimento 74/2018",
-        "5.8 Provimento 82/2019",
-        "5.9 Provimento 85/2019",
-        "5.10 Provimento 88/2019",
-        "5.11 Provimento 89/2019",
-        "5.12 Provimento 134/2022"
+      { title: "5. Provimentos do CNJ", page: 403, items: [
+        {t: "5.1 Provimento 16/2012", p: 403},
+        {t: "5.2 Provimento 50/2015", p: 404},
+        {t: "5.3 Provimento 56/2016", p: 404},
+        {t: "5.4 Provimento 63/2017", p: 404},
+        {t: "5.5 Provimento 65/2017", p: 405},
+        {t: "5.6 Provimento 73/2018", p: 406},
+        {t: "5.7 Provimento 74/2018", p: 406},
+        {t: "5.8 Provimento 82/2019", p: 407},
+        {t: "5.9 Provimento 85/2019", p: 407},
+        {t: "5.10 Provimento 88/2019", p: 407},
+        {t: "5.11 Provimento 89/2019", p: 408},
+        {t: "5.12 Provimento 134/2022", p: 409}
       ]},
-      { title: "6. Resoluções do CNJ", items: [
-        "6.1 Resolução 35/2007",
-        "6.2 Resolução 228/2016",
-        "6.3 Outras Resoluções"
+      { title: "6. Resoluções do CNJ", page: 409, items: [
+        {t: "6.1 Resolução 35/2007", p: 409},
+        {t: "6.2 Resolução 228/2016", p: 412},
+        {t: "6.3 Outras Resoluções", p: 413}
       ]},
-      { title: "7. Leis Especiais", items: [
-        "7.1 Código Florestal (Lei 12.651/12)",
-        "7.2 Declaração sobre Operações Imobiliárias",
-        "7.3 Estatuto da Cidade (Lei 10.257/01)",
-        "7.4 Estatuto da Metrópole (Lei 13.089/15)",
-        "7.5 Estatuto da Terra (Lei 4.504/64)",
-        "7.6 Aquisição de Imóvel Rural por Estrangeiro (Lei 5.709/71)",
-        "7.7 Condomínio em Edificações e Incorporações (Lei 4.591/64)",
-        "7.8 Lei de Contratos Imobiliários (Lei 4.380/64)",
-        "7.9 Normas Gerais sobre Emolumentos (Lei 10.169/00)",
-        "7.10 Registro de Imóveis Rurais (Lei 6.739/79)",
-        "7.11 Parcelamento do Solo Urbano (Lei 6.766/79)",
-        "7.12 Requisitos para Escrituras Públicas (Lei 7.433/85)",
-        "7.13 Lei do Loteamento Urbano (DL 271/67)",
-        "7.14 Patrimônio de Afetação (Lei 10.931/04)",
-        "7.15 Registro Público de Empresas Mercantis (Lei 8.934/94)",
-        "7.16 Sistema de Financiamento Imobiliário (Lei 9.514/97)",
-        "7.17 Sistema Eletrônico de Registros Públicos (Lei 14.382/22)",
-        "7.18 Inventário/Partilha/Separação/Divórcio Consensual (Lei 11.441/07)",
-        "7.19 Minha Casa Minha Vida (Lei 11.977/09)",
-        "7.20 Leis Esparsas"
+      { title: "7. Leis Especiais", page: 414, items: [
+        {t: "7.1 Código Florestal (Lei 12.651/12)", p: 414},
+        {t: "7.2 Declaração sobre Operações Imobiliárias", p: 414},
+        {t: "7.3 Estatuto da Cidade (Lei 10.257/01)", p: 416},
+        {t: "7.4 Estatuto da Metrópole (Lei 13.089/15)", p: 419},
+        {t: "7.5 Estatuto da Terra (Lei 4.504/64)", p: 420},
+        {t: "7.6 Imóvel Rural por Estrangeiro (Lei 5.709/71)", p: 421},
+        {t: "7.7 Condomínio em Edificações e Incorporações (Lei 4.591/64)", p: 423},
+        {t: "7.8 Contratos Imobiliários (Lei 4.380/64)", p: 428},
+        {t: "7.9 Normas Gerais sobre Emolumentos (Lei 10.169/00)", p: 428},
+        {t: "7.10 Registro de Imóveis Rurais (Lei 6.739/79)", p: 431},
+        {t: "7.11 Parcelamento do Solo Urbano (Lei 6.766/79)", p: 432},
+        {t: "7.12 Requisitos para Escrituras Públicas (Lei 7.433/85)", p: 438},
+        {t: "7.13 Loteamento Urbano (DL 271/67)", p: 438},
+        {t: "7.14 Patrimônio de Afetação (Lei 10.931/04)", p: 439},
+        {t: "7.15 Registro Público de Empresas Mercantis (Lei 8.934/94)", p: 441},
+        {t: "7.16 Sistema de Financiamento Imobiliário (Lei 9.514/97)", p: 443},
+        {t: "7.17 Sistema Eletrônico de Registros Públicos (Lei 14.382/22)", p: 447},
+        {t: "7.18 Inventário/Partilha/Separação/Divórcio Consensual (Lei 11.441/07)", p: 448},
+        {t: "7.19 Minha Casa Minha Vida (Lei 11.977/09)", p: 448},
+        {t: "7.20 Leis Esparsas", p: 449}
       ]},
-      { title: "8. Teoria", items: [
-        "8.1 Princípios",
-        "8.2 Temas Esparsos"
+      { title: "8. Teoria", page: 451, items: [
+        {t: "8.1 Princípios", p: 451},
+        {t: "8.2 Temas Esparsos", p: 453}
       ]}
     ]
   },
   {
-    name: "Direito Penal", icon: "⚖️",
+    name: "Direito Penal", icon: "⚖️", page: 455,
     groups: [
-      { title: "1. Aplicação da Lei Penal (arts. 1 a 12)", items: ["1. Da Aplicação da Lei Penal (arts. 1 a 12)"] },
-      { title: "2. Do Crime (arts. 13 a 25)", items: ["2. Do Crime (arts. 13 a 25)"] },
-      { title: "3. Da Imputabilidade Penal (arts. 26 a 28)", items: ["3. Da Imputabilidade Penal (arts. 26 a 28)"] },
-      { title: "4. Do Concurso de Pessoas (arts. 29 a 31)", items: ["4. Do Concurso de Pessoas (arts. 29 a 31)"] },
-      { title: "5. Das Penas (arts. 32 a 95)", items: ["5. Das Penas (arts. 32 a 95)"] },
-      { title: "6. Das Medidas de Segurança (arts. 96 a 99)", items: ["6. Das Medidas de Segurança (arts. 96 a 99)"] },
-      { title: "7. Da Extinção da Punibilidade (arts. 107 a 120)", items: ["7. Da Extinção da Punibilidade (arts. 107 a 120)"] },
-      { title: "8. Crimes c/ Pessoa (arts. 121 a 154-B)", items: ["8. Dos Crimes c/ Pessoa (arts. 121 a 154-B)"] },
-      { title: "9. Crimes c/ Patrimônio (arts. 155 a 183)", items: ["9. Dos Crimes c/ Patrimônio (arts. 155 a 183)"] },
-      { title: "10. Crimes c/ Dignidade Sexual (arts. 213 a 234)", items: ["10. Dos Crimes c/ Dignidade Sexual (arts. 213 a 234)"] },
-      { title: "11. Crimes c/ Família (arts. 235 a 249)", items: ["11. Dos Crimes c/ Família (arts. 235 a 249)"] },
-      { title: "12. Crimes c/ Fé Pública (arts. 289 a 311-A)", items: ["12. Dos Crimes c/ Fé Pública (arts. 289 a 311-A)"] },
-      { title: "13. Crimes c/ Administração Pública (arts. 312 a 359-H)", items: ["13. Dos Crimes c/ Administração Pública (arts. 312 a 359-H)"] },
-      { title: "14. Crimes c/ Estado Democrático de Direito", items: ["14. Crimes c/ Estado Democrático de Direito (arts. 359-I a 359-T)"] },
-      { title: "15. Leis Especiais", items: [
-        "15.1 Estatuto do Desarmamento (Lei 10.826/03)",
-        "15.2 Lei de Drogas (Lei 11.343/06)",
-        "15.3 Lei de Lavagem de Dinheiro (Lei 9.613/98)",
-        "15.4 Lei dos Crimes Ambientais (Lei 9.605/98)",
-        "15.5 Lei dos Crimes c/ Ordem Tributária (Lei 8.137/90)",
-        "15.6 Lei dos Crimes Hediondos (Lei 8.072/90)",
-        "15.7 Leis Esparsas"
+      { title: "1. Aplicação da Lei Penal (arts. 1 a 12)", page: 455, items: [{t: "1. Aplicação da Lei Penal (arts. 1 a 12)", p: 455}] },
+      { title: "2. Do Crime (arts. 13 a 25)", page: 456, items: [{t: "2. Do Crime (arts. 13 a 25)", p: 456}] },
+      { title: "3. Imputabilidade Penal (arts. 26 a 28)", page: 458, items: [{t: "3. Imputabilidade Penal (arts. 26 a 28)", p: 458}] },
+      { title: "4. Concurso de Pessoas (arts. 29 a 31)", page: 458, items: [{t: "4. Concurso de Pessoas (arts. 29 a 31)", p: 458}] },
+      { title: "5. Das Penas (arts. 32 a 95)", page: 459, items: [{t: "5. Das Penas (arts. 32 a 95)", p: 459}] },
+      { title: "6. Medidas de Segurança (arts. 96 a 99)", page: 462, items: [{t: "6. Medidas de Segurança (arts. 96 a 99)", p: 462}] },
+      { title: "7. Extinção da Punibilidade (arts. 107 a 120)", page: 463, items: [{t: "7. Extinção da Punibilidade (arts. 107 a 120)", p: 463}] },
+      { title: "8. Crimes c/ Pessoa (arts. 121 a 154-B)", page: 464, items: [{t: "8. Crimes c/ Pessoa (arts. 121 a 154-B)", p: 464}] },
+      { title: "9. Crimes c/ Patrimônio (arts. 155 a 183)", page: 466, items: [{t: "9. Crimes c/ Patrimônio (arts. 155 a 183)", p: 466}] },
+      { title: "10. Crimes c/ Dignidade Sexual (arts. 213 a 234)", page: 469, items: [{t: "10. Crimes c/ Dignidade Sexual (arts. 213 a 234)", p: 469}] },
+      { title: "11. Crimes c/ Família (arts. 235 a 249)", page: 470, items: [{t: "11. Crimes c/ Família (arts. 235 a 249)", p: 470}] },
+      { title: "12. Crimes c/ Fé Pública (arts. 289 a 311-A)", page: 470, items: [{t: "12. Crimes c/ Fé Pública (arts. 289 a 311-A)", p: 470}] },
+      { title: "13. Crimes c/ Administração Pública (arts. 312 a 359-H)", page: 472, items: [{t: "13. Crimes c/ Administração Pública (arts. 312 a 359-H)", p: 472}] },
+      { title: "14. Crimes c/ Estado Democrático de Direito", page: 475, items: [{t: "14. Crimes c/ Estado Democrático de Direito (arts. 359-I a 359-T)", p: 475}] },
+      { title: "15. Leis Especiais", page: 475, items: [
+        {t: "15.1 Estatuto do Desarmamento (Lei 10.826/03)", p: 475},
+        {t: "15.2 Lei de Drogas (Lei 11.343/06)", p: 476},
+        {t: "15.3 Lavagem de Dinheiro (Lei 9.613/98)", p: 478},
+        {t: "15.4 Crimes Ambientais (Lei 9.605/98)", p: 479},
+        {t: "15.5 Crimes c/ Ordem Tributária (Lei 8.137/90)", p: 481},
+        {t: "15.6 Crimes Hediondos (Lei 8.072/90)", p: 482},
+        {t: "15.7 Leis Esparsas", p: 482}
       ]},
-      { title: "16. Teoria e Princípios", items: ["16. Teoria e Princípios"] }
+      { title: "16. Teoria e Princípios", page: 483, items: [{t: "16. Teoria e Princípios", p: 483}] }
     ]
   },
   {
-    name: "Direito Processual Civil", icon: "📑",
+    name: "Direito Processual Civil", icon: "📑", page: 487,
     groups: [
-      { title: "1. Das Normas Processuais Civis", items: ["1. Das Normas Processuais Civis (arts. 1º a 15)"] },
-      { title: "2. Da Função Jurisdicional", items: [
-        "2.1 Da Jurisdição e da Ação (arts. 16 a 20)",
-        "2.2 Da Competência Interna (arts. 42 a 69)"
+      { title: "1. Normas Processuais Civis (arts. 1º a 15)", page: 487, items: [{t: "1. Normas Processuais Civis (arts. 1º a 15)", p: 487}] },
+      { title: "2. Função Jurisdicional", page: 487, items: [
+        {t: "2.1 Jurisdição e Ação (arts. 16 a 20)", p: 487},
+        {t: "2.2 Competência Interna (arts. 42 a 69)", p: 488}
       ]},
-      { title: "3. Dos Sujeitos do Processo", items: [
-        "3.1.1 Da Capacidade Processual (arts. 70 a 76)",
-        "3.1.2 Deveres das Partes e dos Procuradores (arts. 77 a 102)",
-        "3.1.3 Dos Procuradores, Sucessão das Partes (arts. 103 a 112)",
-        "3.2 Do Litisconsórcio (arts. 113 a 118)",
-        "3.3 Da Intervenção de Terceiros (arts. 119 a 138)",
-        "3.4 Do Juiz e dos Auxiliares da Justiça (arts. 139 a 175)"
+      { title: "3. Sujeitos do Processo", page: 490, items: [
+        {t: "3.1.1 Capacidade Processual (arts. 70 a 76)", p: 490},
+        {t: "3.1.2 Deveres das Partes e Procuradores (arts. 77 a 102)", p: 491},
+        {t: "3.1.3 Procuradores, Sucessão das Partes (arts. 103 a 112)", p: 493},
+        {t: "3.2 Litisconsórcio (arts. 113 a 118)", p: 494},
+        {t: "3.3 Intervenção de Terceiros (arts. 119 a 138)", p: 495},
+        {t: "3.4 Juiz e Auxiliares (arts. 139 a 175)", p: 496}
       ]},
-      { title: "4. Dos Atos Processuais", items: [
-        "4.1 Da Forma, do Tempo e do Lugar (arts. 188 a 235)",
-        "4.2 Da Comunicação dos Atos Processuais (arts. 236 a 275)",
-        "4.3 Das Nulidades (arts. 276 a 283)",
-        "4.4 Da Distribuição/Registro, Valor da Causa (arts. 284 a 293)"
+      { title: "4. Atos Processuais", page: 496, items: [
+        {t: "4.1 Forma, Tempo e Lugar (arts. 188 a 235)", p: 496},
+        {t: "4.2 Comunicação (arts. 236 a 275)", p: 498},
+        {t: "4.3 Nulidades (arts. 276 a 283)", p: 498},
+        {t: "4.4 Distribuição/Registro, Valor da Causa (arts. 284 a 293)", p: 498}
       ]},
-      { title: "5. Da Tutela Provisória (arts. 294 a 311)", items: ["5. Da Tutela Provisória (arts. 294 a 311)"] },
-      { title: "6. Formação, Suspensão e Extinção do Processo", items: ["6. Formação, Suspensão e Extinção do Processo (arts. 312 a 317)"] },
-      { title: "7. Processo de Conhecimento e Cumprimento de Sentença", items: [
-        "7.1.1 Disposições Gerais, Petição Inicial (arts. 318 a 331)",
-        "7.1.2 Improcedência Liminar do Pedido (art. 332)",
-        "7.1.3 Contestação, Reconvenção, Revelia (arts. 335 a 346)",
-        "7.1.4 Providências Preliminares e Saneamento (arts. 347 a 353)",
-        "7.1.5 Das Provas (arts. 369 a 484)",
-        "7.1.6 Sentença e Coisa Julgada (arts. 485 a 508)",
-        "7.2 Cumprimento da Sentença (arts. 513 a 538)",
-        "7.3 Procedimentos Especiais (arts. 539 a 770)"
+      { title: "5. Tutela Provisória (arts. 294 a 311)", page: 499, items: [{t: "5. Tutela Provisória (arts. 294 a 311)", p: 499}] },
+      { title: "6. Formação, Suspensão e Extinção do Processo", page: 500, items: [{t: "6. Formação, Suspensão e Extinção do Processo (arts. 312 a 317)", p: 500}] },
+      { title: "7. Processo de Conhecimento e Cumprimento de Sentença", page: 500, items: [
+        {t: "7.1.1 Disposições Gerais, Petição Inicial (arts. 318 a 331)", p: 500},
+        {t: "7.1.2 Improcedência Liminar (art. 332)", p: 501},
+        {t: "7.1.3 Contestação, Reconvenção, Revelia (arts. 335 a 346)", p: 501},
+        {t: "7.1.4 Providências Preliminares e Saneamento (arts. 347 a 353)", p: 502},
+        {t: "7.1.5 Provas (arts. 369 a 484)", p: 502},
+        {t: "7.1.6 Sentença e Coisa Julgada (arts. 485 a 508)", p: 504},
+        {t: "7.2 Cumprimento da Sentença (arts. 513 a 538)", p: 506},
+        {t: "7.3 Procedimentos Especiais (arts. 539 a 770)", p: 508}
       ]},
-      { title: "8. Processo de Execução", items: [
-        "8.1 Da Execução em Geral (arts. 771 a 796)",
-        "8.2 Diversas Espécies de Execução (arts. 797 a 913)",
-        "8.3 Suspensão e Extinção (arts. 921 a 925)"
+      { title: "8. Processo de Execução", page: 513, items: [
+        {t: "8.1 Execução em Geral (arts. 771 a 796)", p: 513},
+        {t: "8.2 Diversas Espécies (arts. 797 a 913)", p: 515},
+        {t: "8.3 Suspensão e Extinção (arts. 921 a 925)", p: 519}
       ]},
-      { title: "9. Processos nos Tribunais e Meios de Impugnação", items: [
-        "9.1.1 Incidentes (IAC, IAI, IRDR)",
-        "9.1.2 Homologação de Decisão Estrangeira (arts. 960 a 965)",
-        "9.1.3 Ação Rescisória (arts. 966 a 975)",
-        "9.1.4 Reclamação (arts. 988 a 993)",
-        "9.2.1 Recursos — Disposições Gerais (arts. 994 a 1.008)",
-        "9.2.2 Apelação (arts. 1.009 a 1.014)",
-        "9.2.3 Agravo (arts. 1.015 a 1.021)",
-        "9.2.4 Embargos de Declaração (arts. 1.022 a 1.026)",
-        "9.2.5 Recursos para STF/STJ (arts. 1.027 a 1.044)"
+      { title: "9. Processos nos Tribunais e Meios de Impugnação", page: 519, items: [
+        {t: "9.1.1 Incidentes (IAC, IAI, IRDR)", p: 519},
+        {t: "9.1.2 Homologação de Decisão Estrangeira (arts. 960 a 965)", p: 520},
+        {t: "9.1.3 Ação Rescisória (arts. 966 a 975)", p: 520},
+        {t: "9.1.4 Reclamação (arts. 988 a 993)", p: 520},
+        {t: "9.2.1 Recursos — Disposições Gerais (arts. 994 a 1.008)", p: 521},
+        {t: "9.2.2 Apelação (arts. 1.009 a 1.014)", p: 522},
+        {t: "9.2.3 Agravo (arts. 1.015 a 1.021)", p: 523},
+        {t: "9.2.4 Embargos de Declaração (arts. 1.022 a 1.026)", p: 524},
+        {t: "9.2.5 Recursos para STF/STJ (arts. 1.027 a 1.044)", p: 525}
       ]},
-      { title: "10. Leis Especiais", items: [
-        "10.1 Lei de Arbitragem (Lei 9.307/96)",
-        "10.2 Lei de Execução Fiscal (Lei 6.830/80)",
-        "10.3 Lei de Mediação (Lei 13.140/15)",
-        "10.4 Leis dos Juizados Especiais"
+      { title: "10. Leis Especiais", page: 527, items: [
+        {t: "10.1 Arbitragem (Lei 9.307/96)", p: 527},
+        {t: "10.2 Execução Fiscal (Lei 6.830/80)", p: 527},
+        {t: "10.3 Mediação (Lei 13.140/15)", p: 530},
+        {t: "10.4 Juizados Especiais", p: 530}
       ]},
-      { title: "11. Teoria e Princípios", items: ["11. Teoria e Princípios"] }
+      { title: "11. Teoria e Princípios", page: 531, items: [{t: "11. Teoria e Princípios", p: 531}] }
     ]
   },
   {
-    name: "Direito Processual Penal", icon: "🔎",
+    name: "Direito Processual Penal", icon: "🔎", page: 533,
     groups: [
-      { title: "1. Disposições Preliminares (arts. 1º a 3º)", items: ["1. Disposições Preliminares (arts. 1º a 3º)"] },
-      { title: "2. Do Inquérito Policial (arts. 4º a 23)", items: ["2. Do Inquérito Policial (arts. 4º a 23)"] },
-      { title: "3. Da Ação Penal/Civil (arts. 24 a 68)", items: ["3. Da Ação Penal/Civil (arts. 24 a 68)"] },
-      { title: "4. Da Competência (arts. 69 a 91)", items: ["4. Da Competência (arts. 69 a 91)"] },
-      { title: "5. Questões e Processos Incidentes (arts. 92 a 154)", items: ["5. Das Questões e Processos Incidentes (arts. 92 a 154)"] },
-      { title: "6. Da Prova (arts. 155 a 250)", items: ["6. Da Prova (arts. 155 a 250)"] },
-      { title: "7. Dos Sujeitos do Processo (arts. 251 a 281)", items: ["7. Dos Sujeitos do Processo (arts. 251 a 281)"] },
-      { title: "8. Prisão, Medidas Cautelares e Liberdade Provisória", items: ["8. Prisão, Medidas Cautelares e Liberdade Provisória (arts. 282 a 350)"] },
-      { title: "9. Das Citações e Intimações (arts. 351 a 372)", items: ["9. Das Citações e Intimações (arts. 351 a 372)"] },
-      { title: "10. Da Sentença (arts. 381 a 393)", items: ["10. Da Sentença (arts. 381 a 393)"] },
-      { title: "11. Do Processo Comum", items: ["11.1 Da Instrução Criminal (arts. 394 a 405)"] },
-      { title: "12. Nulidades e Recursos em Geral", items: [
-        "12.1 Das Nulidades (arts. 563 a 573)",
-        "12.2 Dos Recursos (arts. 574 a 667)"
+      { title: "1. Disposições Preliminares (arts. 1º a 3º)", page: 533, items: [{t: "1. Disposições Preliminares (arts. 1º a 3º)", p: 533}] },
+      { title: "2. Inquérito Policial (arts. 4º a 23)", page: 534, items: [{t: "2. Inquérito Policial (arts. 4º a 23)", p: 534}] },
+      { title: "3. Ação Penal/Civil (arts. 24 a 68)", page: 535, items: [{t: "3. Ação Penal/Civil (arts. 24 a 68)", p: 535}] },
+      { title: "4. Competência (arts. 69 a 91)", page: 538, items: [{t: "4. Competência (arts. 69 a 91)", p: 538}] },
+      { title: "5. Questões e Processos Incidentes (arts. 92 a 154)", page: 541, items: [{t: "5. Questões e Processos Incidentes (arts. 92 a 154)", p: 541}] },
+      { title: "6. Prova (arts. 155 a 250)", page: 543, items: [{t: "6. Prova (arts. 155 a 250)", p: 543}] },
+      { title: "7. Sujeitos do Processo (arts. 251 a 281)", page: 547, items: [{t: "7. Sujeitos do Processo (arts. 251 a 281)", p: 547}] },
+      { title: "8. Prisão, Medidas Cautelares e Liberdade Provisória", page: 547, items: [{t: "8. Prisão, Medidas Cautelares e Liberdade Provisória (arts. 282 a 350)", p: 547}] },
+      { title: "9. Citações e Intimações (arts. 351 a 372)", page: 549, items: [{t: "9. Citações e Intimações (arts. 351 a 372)", p: 549}] },
+      { title: "10. Sentença (arts. 381 a 393)", page: 550, items: [{t: "10. Sentença (arts. 381 a 393)", p: 550}] },
+      { title: "11. Processo Comum", page: 551, items: [{t: "11.1 Instrução Criminal (arts. 394 a 405)", p: 551}] },
+      { title: "12. Nulidades e Recursos em Geral", page: 552, items: [
+        {t: "12.1 Nulidades (arts. 563 a 573)", p: 552},
+        {t: "12.2 Recursos (arts. 574 a 667)", p: 552}
       ]},
-      { title: "13. Leis Especiais", items: [
-        "13.1 Lei das Organizações Criminosas (Lei 12.850/13)",
-        "13.2 Lei da Prisão Temporária (Lei 7.960/89)",
-        "13.3 Lei de Execução Penal (Lei 7.210/84)",
-        "13.4 Lei de Interceptação Telefônica (Lei 9.296/96)",
-        "13.5 Lei dos Juizados Especiais (Lei 9.099/95)",
-        "13.6 Lei Maria da Penha (Lei 11.340/06)",
-        "13.7 Leis Esparsas"
+      { title: "13. Leis Especiais", page: 554, items: [
+        {t: "13.1 Organizações Criminosas (Lei 12.850/13)", p: 554},
+        {t: "13.2 Prisão Temporária (Lei 7.960/89)", p: 555},
+        {t: "13.3 Execução Penal (Lei 7.210/84)", p: 555},
+        {t: "13.4 Interceptação Telefônica (Lei 9.296/96)", p: 559},
+        {t: "13.5 Juizados Especiais (Lei 9.099/95)", p: 560},
+        {t: "13.6 Maria da Penha (Lei 11.340/06)", p: 562},
+        {t: "13.7 Leis Esparsas", p: 565}
       ]},
-      { title: "14. Teoria e Princípios", items: ["14. Teoria e Princípios"] }
+      { title: "14. Teoria e Princípios", page: 565, items: [{t: "14. Teoria e Princípios", p: 565}] }
     ]
   },
   {
-    name: "Direito Tributário", icon: "💰",
+    name: "Direito Tributário", icon: "💰", page: 567,
     groups: [
-      { title: "1. Competência Tributária (CTN, arts. 6º a 15)", items: ["1. Competência Tributária (CTN, arts. 6º a 15)"] },
-      { title: "2. Impostos, Taxas e Contribuições", items: ["2. Impostos, Taxas e Contribuições (CTN arts. 16-82; CF arts. 145, 148, 149, 195)"] },
-      { title: "3. Legislação Tributária (CTN, arts. 96 a 112)", items: ["3. Legislação Tributária (CTN, arts. 96 a 112)"] },
-      { title: "4. Obrigação Tributária (CTN, arts. 113 a 138)", items: ["4. Obrigação Tributária (CTN, arts. 113 a 138)"] },
-      { title: "5. Crédito Tributário (CTN, arts. 139 a 193)", items: ["5. Crédito Tributário (CTN, arts. 139 a 193)"] },
-      { title: "6. Administração Tributária (CTN, arts. 194 a 208)", items: ["6. Administração Tributária (CTN, arts. 194 a 208)"] },
-      { title: "7. Dos Princípios Gerais (CF, arts. 145 a 149-A)", items: ["7. Dos Princípios Gerais (CF, arts. 145 a 149-A)"] },
-      { title: "8. Limitações do Poder de Tributar (CF, arts. 150 a 152)", items: ["8. Limitações do Poder de Tributar (CF, arts. 150 a 152)"] },
-      { title: "9. Impostos da União (CF, arts. 153 a 154)", items: ["9. Impostos da União (CF, arts. 153 a 154)"] },
-      { title: "10. Impostos dos Estados/DF (CF, art. 155)", items: ["10. Impostos dos Estados/DF (CF, art. 155)"] },
-      { title: "11. Impostos dos Municípios (CF, art. 156)", items: ["11. Impostos dos Municípios (CF, art. 156)"] },
-      { title: "12. Imposto sobre Bens e Serviços (CF, arts. 156-A e 156-B)", items: ["12. Imposto sobre Bens e Serviços (CF, arts. 156-A e 156-B)"] },
-      { title: "13. Repartição das Receitas Tributárias (CF, arts. 157 a 162)", items: ["13. Repartição das Receitas Tributárias (CF, arts. 157 a 162)"] }
+      { title: "1. Competência Tributária (CTN, arts. 6º a 15)", page: 567, items: [{t: "1. Competência Tributária (CTN, arts. 6º a 15)", p: 567}] },
+      { title: "2. Impostos, Taxas e Contribuições", page: 568, items: [{t: "2. Impostos, Taxas e Contribuições (CTN arts. 16-82; CF arts. 145, 148, 149, 195)", p: 568}] },
+      { title: "3. Legislação Tributária (CTN, arts. 96 a 112)", page: 572, items: [{t: "3. Legislação Tributária (CTN, arts. 96 a 112)", p: 572}] },
+      { title: "4. Obrigação Tributária (CTN, arts. 113 a 138)", page: 573, items: [{t: "4. Obrigação Tributária (CTN, arts. 113 a 138)", p: 573}] },
+      { title: "5. Crédito Tributário (CTN, arts. 139 a 193)", page: 577, items: [{t: "5. Crédito Tributário (CTN, arts. 139 a 193)", p: 577}] },
+      { title: "6. Administração Tributária (CTN, arts. 194 a 208)", page: 583, items: [{t: "6. Administração Tributária (CTN, arts. 194 a 208)", p: 583}] },
+      { title: "7. Princípios Gerais (CF, arts. 145 a 149-A)", page: 584, items: [{t: "7. Princípios Gerais (CF, arts. 145 a 149-A)", p: 584}] },
+      { title: "8. Limitações do Poder de Tributar (CF, arts. 150 a 152)", page: 585, items: [{t: "8. Limitações do Poder de Tributar (CF, arts. 150 a 152)", p: 585}] },
+      { title: "9. Impostos da União (CF, arts. 153 a 154)", page: 590, items: [{t: "9. Impostos da União (CF, arts. 153 a 154)", p: 590}] },
+      { title: "10. Impostos dos Estados/DF (CF, art. 155)", page: 594, items: [{t: "10. Impostos dos Estados/DF (CF, art. 155)", p: 594}] },
+      { title: "11. Impostos dos Municípios (CF, art. 156)", page: 599, items: [{t: "11. Impostos dos Municípios (CF, art. 156)", p: 599}] },
+      { title: "12. Imposto sobre Bens e Serviços (CF, arts. 156-A e 156-B)", page: 603, items: [{t: "12. Imposto sobre Bens e Serviços (CF, arts. 156-A e 156-B)", p: 603}] },
+      { title: "13. Repartição das Receitas Tributárias (CF, arts. 157 a 162)", page: 603, items: [{t: "13. Repartição das Receitas Tributárias (CF, arts. 157 a 162)", p: 603}] }
     ]
   },
   {
-    name: "Conhecimentos Gerais", icon: "🌎",
+    name: "Conhecimentos Gerais", icon: "🌎", page: 605,
     groups: [
-      { title: "Conhecimentos Gerais", items: [
-        "1. Artes, Cultura, Esportes",
-        "2. Atualidades",
-        "3. Ciência e Tecnologia",
-        "4. Economia",
-        "5. Geografia",
-        "6. História",
-        "7. Meio Ambiente",
-        "8. Saúde Pública",
-        "9. Sociologia"
+      { title: "Conhecimentos Gerais", page: 605, items: [
+        {t: "1. Artes, Cultura, Esportes", p: 605},
+        {t: "2. Atualidades", p: 607},
+        {t: "3. Ciência e Tecnologia", p: 610},
+        {t: "4. Economia", p: 611},
+        {t: "5. Geografia", p: 614},
+        {t: "6. História", p: 614},
+        {t: "7. Meio Ambiente", p: 615},
+        {t: "8. Saúde Pública", p: 617},
+        {t: "9. Sociologia", p: 618}
       ]}
     ]
   }
@@ -954,10 +781,7 @@ let currentFilter = "all";
 let searchTerm = "";
 
 function topicId(d, g, i) { return `${d}|${g}|${i}`; }
-function countLines(s) {
-  if (!s) return 0;
-  return String(s).split("\n").map(x => x.trim()).filter(Boolean).length;
-}
+function countLines(s) { if (!s) return 0; return String(s).split("\n").map(x => x.trim()).filter(Boolean).length; }
 function emptyTopic() { return { done: false, q: 0, qd: 0, s: 0, d: 0 }; }
 function ensureTopic(id) {
   if (!state[id] || typeof state[id] !== "object") state[id] = emptyTopic();
@@ -968,7 +792,6 @@ function ensureTopic(id) {
   if (typeof t.d !== "number") t.d = 0;
   return t;
 }
-
 function migrateRecord(v) {
   if (v === true) return { done: true, q: 0, qd: 0, s: 0, d: 0 };
   if (v && typeof v === "object") {
@@ -982,7 +805,6 @@ function migrateRecord(v) {
   }
   return null;
 }
-
 function loadState() {
   try {
     let raw = localStorage.getItem(STORAGE_KEY);
@@ -1010,17 +832,21 @@ function saveState() {
 }
 function updateLastUpdate() {
   if (state.__updated) {
-    document.getElementById("last-update").textContent =
-      "Atualizado em " + new Date(state.__updated).toLocaleString("pt-BR");
+    document.getElementById("last-update").textContent = "Atualizado em " + new Date(state.__updated).toLocaleString("pt-BR");
   }
 }
-function loadSet(key) {
-  try { return new Set(JSON.parse(localStorage.getItem(key)) || []); }
-  catch { return new Set(); }
-}
+function loadSet(key) { try { return new Set(JSON.parse(localStorage.getItem(key)) || []); } catch { return new Set(); } }
 function saveSet(key, set) { localStorage.setItem(key, JSON.stringify([...set])); }
 
 /* STATS */
+function getItemText(di, gi, ii) {
+  const it = SYLLABUS[di].groups[gi].items[ii];
+  return typeof it === "string" ? it : it.t;
+}
+function getItemPage(di, gi, ii) {
+  const it = SYLLABUS[di].groups[gi].items[ii];
+  return typeof it === "object" ? it.p : null;
+}
 function topicStats(id) {
   const t = state[id];
   if (!t || typeof t !== "object") return { done: false, q: 0, qd: 0, s: 0, d: 0 };
@@ -1061,7 +887,7 @@ function matchesFilter(di, gi, ii) {
   if (currentFilter === "done" && !t.done) return false;
   if (currentFilter === "pending" && t.done) return false;
   if (searchTerm) {
-    const text = (SYLLABUS[di].name + " " + SYLLABUS[di].groups[gi].title + " " + SYLLABUS[di].groups[gi].items[ii]).toLowerCase();
+    const text = (SYLLABUS[di].name + " " + SYLLABUS[di].groups[gi].title + " " + getItemText(di, gi, ii) + " p" + getItemPage(di, gi, ii)).toLowerCase();
     if (!text.includes(searchTerm)) return false;
   }
   return true;
@@ -1075,9 +901,7 @@ function disciplineMatchesFilter(di) {
 
 /* RENDER */
 const elDisc = document.getElementById("disciplines");
-function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
-}
+function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c])); }
 
 function render() {
   elDisc.innerHTML = "";
@@ -1100,7 +924,7 @@ function render() {
     header.innerHTML = `
       <div class="disc-num">${disc.icon}</div>
       <div class="disc-info">
-        <div class="disc-name">${di + 1}. ${escapeHtml(disc.name)}</div>
+        <div class="disc-name">${di + 1}. ${escapeHtml(disc.name)} <span class="page-tag">p. ${disc.page}</span></div>
         <div class="disc-meta">
           <div class="mini-bar"><div class="mini-fill" style="width:${s.pct}%; background:${colorForPct(s.pct)}"></div></div>
           <div class="disc-pct">${s.pct}% · ${s.done}/${s.total}</div>
@@ -1126,7 +950,7 @@ function render() {
     topics.className = "topics";
 
     disc.groups.forEach((g, gi) => {
-      const visibleItems = g.items.map((item, ii) => ({ item, ii })).filter(({ ii }) => matchesFilter(di, gi, ii));
+      const visibleItems = g.items.map((it, ii) => ({ it, ii })).filter(({ ii }) => matchesFilter(di, gi, ii));
       if (visibleItems.length === 0 && (searchTerm || currentFilter !== "all")) return;
 
       const groupEl = document.createElement("div");
@@ -1134,7 +958,7 @@ function render() {
       const groupHeader = document.createElement("div");
       groupHeader.className = "topic-group-header";
       groupHeader.innerHTML = `
-        <span>${escapeHtml(g.title)}</span>
+        <span class="group-title">${escapeHtml(g.title)} <span class="page-tag">p. ${g.page}</span></span>
         <div class="topic-group-actions">
           <span class="group-action" data-action="all" data-di="${di}" data-gi="${gi}">✓ Todos</span>
           <span class="group-action" data-action="none" data-di="${di}" data-gi="${gi}">✗ Limpar</span>
@@ -1142,10 +966,12 @@ function render() {
       `;
       groupEl.appendChild(groupHeader);
 
-      visibleItems.forEach(({ item, ii }) => {
+      visibleItems.forEach(({ it, ii }) => {
         const id = topicId(di, gi, ii);
         const t = topicStats(id);
         const expanded = expandedTopics.has(id);
+        const itemText = typeof it === "string" ? it : it.t;
+        const itemPage = typeof it === "object" ? it.p : null;
         const wrap = document.createElement("div");
         wrap.className = "topic-item" + (t.done ? " done" : "") + (expanded ? " expanded" : "");
         wrap.dataset.id = id;
@@ -1153,7 +979,10 @@ function render() {
           <div class="topic-row">
             <div class="checkbox" data-toggle="done"></div>
             <div class="topic-text-wrap">
-              <div class="topic-text">${escapeHtml(item)}</div>
+              <div class="topic-text">
+                <span>${escapeHtml(itemText)}</span>
+                ${itemPage ? `<span class="page-pill">p. ${itemPage}</span>` : ""}
+              </div>
               <div class="topic-badges">
                 <span class="badge q">❓ ${t.q}</span>
                 <span class="badge qd">✍️ ${t.qd}</span>
@@ -1323,10 +1152,7 @@ function attachDetailHandlers(wrap, id) {
     if (zero) zero.addEventListener("click", e => { e.stopPropagation(); update(0, 0); });
     adds.forEach(b => b.addEventListener("click", e => { e.stopPropagation(); update(+b.dataset.n); }));
   }
-  bindStepper("q");
-  bindStepper("qd");
-  bindStepper("s");
-  bindStepper("d");
+  bindStepper("q"); bindStepper("qd"); bindStepper("s"); bindStepper("d");
 }
 
 /* CONTROLES */
@@ -1346,10 +1172,8 @@ document.getElementById("search").addEventListener("input", e => {
   render();
 });
 document.getElementById("btn-collapse").addEventListener("click", () => {
-  openDisciplines.clear();
-  expandedTopics.clear();
-  saveSet(OPEN_KEY, openDisciplines);
-  saveSet(EXPANDED_KEY, expandedTopics);
+  openDisciplines.clear(); expandedTopics.clear();
+  saveSet(OPEN_KEY, openDisciplines); saveSet(EXPANDED_KEY, expandedTopics);
   render();
 });
 document.getElementById("btn-expand").addEventListener("click", () => {
@@ -1375,11 +1199,8 @@ modalBg.addEventListener("click", e => { if (e.target === modalBg) modalBg.class
 
 document.getElementById("btn-reset").addEventListener("click", () => {
   if (confirm("Resetar TODO o progresso? Esta ação não pode ser desfeita.")) {
-    state = {};
-    localStorage.removeItem(STORAGE_KEY);
-    modalBg.classList.remove("open");
-    render();
-    toast("Progresso resetado");
+    state = {}; localStorage.removeItem(STORAGE_KEY);
+    modalBg.classList.remove("open"); render(); toast("Progresso resetado");
   }
 });
 document.getElementById("btn-export").addEventListener("click", () => {
@@ -1387,15 +1208,12 @@ document.getElementById("btn-export").addEventListener("click", () => {
   const blob = new Blob([data], { type: "application/json" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
-  a.href = url;
-  a.download = `cronograma-cartorio-${new Date().toISOString().slice(0,10)}.json`;
+  a.href = url; a.download = `cronograma-cartorio-${new Date().toISOString().slice(0,10)}.json`;
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
   URL.revokeObjectURL(url);
   toast("Backup exportado ✓");
 });
-document.getElementById("btn-import").addEventListener("click", () => {
-  document.getElementById("file-import").click();
-});
+document.getElementById("btn-import").addEventListener("click", () => { document.getElementById("file-import").click(); });
 document.getElementById("file-import").addEventListener("change", e => {
   const f = e.target.files[0]; if (!f) return;
   const r = new FileReader();
@@ -1411,22 +1229,18 @@ document.getElementById("file-import").addEventListener("change", e => {
         if (m) migrated[k] = m;
       });
       if (confirm("Importar e SOBRESCREVER o progresso atual?")) {
-        state = migrated;
-        saveState();
-        modalBg.classList.remove("open");
-        render();
-        toast("Progresso importado ✓");
+        state = migrated; saveState();
+        modalBg.classList.remove("open"); render(); toast("Progresso importado ✓");
       }
     } catch (err) { alert("Arquivo inválido: " + err.message); }
   };
-  r.readAsText(f);
-  e.target.value = "";
+  r.readAsText(f); e.target.value = "";
 });
 document.getElementById("btn-stats").addEventListener("click", () => {
   const o = overallStats();
   const lines = SYLLABUS.map((d, di) => {
     const s = disciplineStats(di);
-    return `${di+1}. ${d.name}\n   ${s.pct}% (${s.done}/${s.total})\n   ❓${s.q} ✍️${s.qd} 📌${s.s} ⚖️${s.d}`;
+    return `${di+1}. ${d.name} (p. ${d.page})\n   ${s.pct}% (${s.done}/${s.total})\n   ❓${s.q} ✍️${s.qd} 📌${s.s} ⚖️${s.d}`;
   });
   alert(`📊 Estatísticas Gerais\n\nProgresso: ${o.pct}% (${o.done}/${o.total})\nObjetivas: ${o.q}\nDissertativas: ${o.qd}\nSúmulas: ${o.s}\nDecisões: ${o.d}\n\n${lines.join("\n\n")}`);
 });
